@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pulse — Meet the Team · Season 2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            yellow: { pulse:"#FFD23F", deep:"#F4B800", soft:"#FFF8DC" },
+            ink: "#0D0D0D"
+          },
+          fontFamily: {
+            display: ["Plus Jakarta Sans","sans-serif"],
+            body:    ["DM Sans","sans-serif"]
+          },
+          boxShadow: {
+            glow:   "0 0 28px 6px rgba(255,210,63,0.45)",
+            glowsm: "0 0 14px 3px rgba(255,210,63,0.30)"
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:"DM Sans",sans-serif;background:#fff;color:#0D0D0D;overflow-x:hidden}
+    h1,h2,h3,h4{font-family:"Plus Jakarta Sans",sans-serif}
+
+    /* ── Navbar ── */
+    #navbar{transition:background .3s,box-shadow .3s}
+    #navbar.scrolled{background:rgba(255,255,255,.97)!important;backdrop-filter:blur(16px);box-shadow:0 2px 24px rgba(0,0,0,.08)}
+
+    /* ── Mobile menu ── */
+    #mobile-menu{max-height:0;overflow:hidden;transition:max-height .4s ease}
+    #mobile-menu.open{max-height:400px}
+
+    /* ── Scroll reveal ── */
+    .reveal{opacity:0;transform:translateY(32px);transition:opacity .65s ease,transform .65s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    /* ── Social icons ── */
+    .soc{transition:color .2s,transform .25s,filter .25s}
+    .soc:hover{color:#FFD23F;transform:scale(1.28);filter:drop-shadow(0 0 7px rgba(255,210,63,.75))}
+
+    /* ── CTA pulse ── */
+    @keyframes ctaPulse{
+      0%,100%{box-shadow:0 0 0 0 rgba(255,210,63,.55)}
+      60%{box-shadow:0 0 0 20px rgba(255,210,63,0)}
+    }
+    .cta-pulse{animation:ctaPulse 2.2s ease-in-out infinite}
+
+    /* ── Dot pulse ── */
+    @keyframes dotPulse{
+      0%,100%{box-shadow:0 0 0 0 rgba(255,210,63,.7);transform:scale(1)}
+      50%{box-shadow:0 0 0 9px rgba(255,210,63,0);transform:scale(1.18)}
+    }
+    .dot-pulse{animation:dotPulse 1.8s ease-in-out infinite}
+
+    /* ══ MEMBER CARD ══ */
+    .member-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1rem;
+      cursor: pointer;
+      aspect-ratio: 3/4;
+      background: #111;
+      transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s;
+    }
+    .member-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+    }
+    .member-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease;
+    }
+    .member-card:hover img {
+      transform: scale(1.06);
+    }
+    /* Overlay — hidden by default, revealed on hover */
+    .member-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.55) 45%, transparent 75%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.1rem;
+      pointer-events: none;
+    }
+    .member-card:hover .member-overlay {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    /* Verified badge overlay */
+    .verified-badge {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(34,197,94,0.95);
+      color: #fff;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-weight: 700;
+      font-size: 0.78rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 20;
+      box-shadow: 0 4px 18px rgba(34,197,94,0.5);
+    }
+    .member-card.verified .verified-badge {
+      opacity: 1;
+    }
+    .member-card.verified .member-overlay {
+      opacity: 1;
+    }
+
+    /* ── Section divider ── */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-weight: 800;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #0D0D0D;
+      background: #FFD23F;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+    }
+
+    /* ── Committee header ── */
+    .committee-header {
+      position: relative;
+      padding-left: 1rem;
+    }
+    .committee-header::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 80%;
+      background: #FFD23F;
+      border-radius: 2px;
+    }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(6rem);
+      background: #ef4444;
+      color: #fff;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 0.85rem 1.6rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 8px 30px rgba(239,68,68,0.4);
+      transition: transform 0.35s cubic-bezier(.34,1.56,.64,1), opacity 0.35s;
+      opacity: 0;
+      z-index: 9999;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* ── Search box glow ── */
+    #verify-input:focus {
+      outline: none;
+      border-color: #FFD23F;
+      box-shadow: 0 0 0 3px rgba(255,210,63,0.25);
+    }
+
+    /* ── Hero section pattern ── */
+    .team-hero-bg {
+      background: #0D0D0D;
+      position: relative;
+      overflow: hidden;
+    }
+    .team-hero-bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 20% 50%, rgba(255,210,63,0.12) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 30%, rgba(255,210,63,0.08) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    /* ── Mobile fixes ── */
+    @media (max-width: 640px) {
+      .logo-navbar, nav img { max-height: 2.2rem !important; }
+    }
+    .no-scroll::-webkit-scrollbar{display:none}
+    .no-scroll{-ms-overflow-style:none;scrollbar-width:none}
+
+    /* ── Shimmer ── */
+    @keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+    .shimmer{
+      background:linear-gradient(90deg,#FFD23F 25%,#fff 50%,#FFD23F 75%);
+      background-size:400px 100%;
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      animation:shimmer 3.5s linear infinite
+    }
+
+    /* ── Verified ring ── */
+    .member-card.verified {
+      ring: 4px;
+      ring-color: rgb(34 197 94);
+      box-shadow: 0 0 0 4px rgb(34 197 94), 0 0 25px rgba(34,197,94,0.6) !important;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════
+     NAVBAR
+═══════════════════════════════ -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-white/85 backdrop-blur-md px-6 md:px-12 py-3">
+  <div class="max-w-6xl mx-auto flex items-center justify-between">
+    <a href="index.html" class="flex items-center">
+      <img src="images/logo.webp" alt="Pulse" class="h-11 w-auto object-contain" style="background:transparent;mix-blend-mode:multiply;" />
+    </a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="index.html#what-we-do" class="font-body text-sm font-medium text-slate-600 hover:text-yellow-deep transition-colors">What We Do</a>
+      <a href="index.html#events" class="font-body text-sm font-medium text-slate-600 hover:text-yellow-deep transition-colors">Events</a>
+      <a href="index.html#committees" class="font-body text-sm font-medium text-slate-600 hover:text-yellow-deep transition-colors">Committees</a>
+      <a href="team.html" class="font-body text-sm font-medium text-yellow-deep border-b-2 border-yellow-pulse transition-colors">Our Team</a>
+      <a href="https://forms.gle/kkAWEy8sTDc9a6iB7" target="_blank" rel="noopener"
+         class="bg-yellow-pulse text-ink text-sm font-display font-bold px-5 py-2.5 rounded-full shadow-glowsm hover:shadow-glow hover:scale-105 transition-all duration-200">
+        Join Us ⚡
+      </a>
+    </div>
+    <button id="hamburger" class="md:hidden text-ink text-2xl focus:outline-none">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+  <div id="mobile-menu" class="md:hidden bg-white mt-2 rounded-2xl shadow-lg">
+    <div class="flex flex-col px-6 py-4 gap-0">
+      <a href="index.html#what-we-do" class="py-3 border-b border-gray-100 text-sm text-slate-700 hover:text-yellow-deep transition-colors mobile-link">What We Do</a>
+      <a href="index.html#events" class="py-3 border-b border-gray-100 text-sm text-slate-700 hover:text-yellow-deep transition-colors mobile-link">Events</a>
+      <a href="index.html#committees" class="py-3 border-b border-gray-100 text-sm text-slate-700 hover:text-yellow-deep transition-colors mobile-link">Committees</a>
+      <a href="team.html" class="py-3 border-b border-gray-100 text-sm font-semibold text-yellow-deep transition-colors mobile-link">Our Team</a>
+      <a href="https://forms.gle/kkAWEy8sTDc9a6iB7" target="_blank" rel="noopener"
+         class="mt-4 mb-2 text-center bg-yellow-pulse text-ink font-display font-bold px-5 py-3 rounded-full mobile-link">
+        Join Us ⚡
+      </a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════
+     TEAM HERO
+═══════════════════════════════ -->
+<section class="team-hero-bg pt-32 pb-20 px-6">
+  <div class="max-w-4xl mx-auto text-center relative z-10">
+    <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white/80 text-xs font-medium px-4 py-2 rounded-full mb-6 animate__animated animate__fadeInDown">
+      <span class="w-2 h-2 rounded-full bg-yellow-pulse dot-pulse"></span>
+      Season 2026 · Official Team
+    </div>
+    <h1 class="font-display font-extrabold leading-tight mb-5 animate__animated animate__fadeInUp" style="font-size:clamp(2.4rem,6vw,4.2rem);letter-spacing:-.025em;">
+      <span class="text-white">Meet the</span>
+      <span class="shimmer"> Pulse Team.</span>
+    </h1>
+    <p class="font-body text-white/60 max-w-xl mx-auto leading-relaxed animate__animated animate__fadeInUp" style="font-size:clamp(1rem,2vw,1.1rem);animation-delay:.15s;">
+      28 passionate individuals. Three committees. One mission — to empower, inspire, and lead the next generation of changemakers.
+    </p>
+    <!-- Stats row -->
+    <div class="mt-10 flex items-center justify-center gap-10 flex-wrap animate__animated animate__fadeInUp" style="animation-delay:.3s;">
+      <div class="text-center">
+        <div class="font-display font-extrabold text-yellow-pulse text-3xl">28</div>
+        <div class="font-body text-white/40 text-xs mt-1 uppercase tracking-widest">Members</div>
+      </div>
+      <div class="w-px h-10 bg-white/10"></div>
+      <div class="text-center">
+        <div class="font-display font-extrabold text-yellow-pulse text-3xl">3</div>
+        <div class="font-body text-white/40 text-xs mt-1 uppercase tracking-widest">Committees</div>
+      </div>
+      <div class="w-px h-10 bg-white/10"></div>
+      <div class="text-center">
+        <div class="font-display font-extrabold text-yellow-pulse text-3xl">1</div>
+        <div class="font-body text-white/40 text-xs mt-1 uppercase tracking-widest">Vision</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════
+     CERTIFICATE VERIFICATION BOX
+═══════════════════════════════ -->
+<section class="bg-white border-b border-gray-100 py-12 px-6">
+  <div class="max-w-2xl mx-auto reveal">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <span class="section-label mb-3 inline-flex"><i class="fa-solid fa-shield-halved"></i> Certificate Verification</span>
+      <h2 class="font-display font-extrabold text-ink mt-3" style="font-size:clamp(1.4rem,3vw,1.9rem);">Verify Team Membership</h2>
+      <p class="font-body text-slate-500 text-sm mt-2 max-w-sm mx-auto leading-relaxed">
+        Enter a Verification ID from an official Pulse certificate to confirm authenticity.
+      </p>
+    </div>
+    <!-- Search box -->
+    <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 shadow-sm">
+      <div class="flex flex-col sm:flex-row gap-3">
+        <div class="flex-1 relative">
+          <i class="fa-solid fa-certificate absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+          <input
+            id="verify-input"
+            type="text"
+            placeholder="Enter Certificate Verification ID (e.g., PULSE26-Your-Name)"
+            class="w-full pl-10 pr-4 py-3.5 rounded-xl border border-gray-200 bg-white font-body text-sm text-ink placeholder:text-gray-400 transition-all duration-200"
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </div>
+        <button
+          id="verify-btn"
+          class="bg-yellow-pulse text-ink font-display font-bold px-7 py-3.5 rounded-xl text-sm hover:shadow-glow hover:scale-105 transition-all duration-200 whitespace-nowrap flex items-center gap-2"
+        >
+          <i class="fa-solid fa-magnifying-glass"></i> Verify
+        </button>
+      </div>
+      <!-- Error message area -->
+      <div id="verify-error" class="mt-3 hidden">
+        <div class="flex items-center gap-2 bg-red-50 border border-red-200 text-red-600 rounded-xl px-4 py-3 text-sm font-body">
+          <i class="fa-solid fa-circle-xmark text-red-500"></i>
+          <span>Invalid Certificate ID. Please try again.</span>
+        </div>
+      </div>
+      <!-- Success message area -->
+      <div id="verify-success" class="mt-3 hidden">
+        <div class="flex items-center gap-2 bg-green-50 border border-green-200 text-green-700 rounded-xl px-4 py-3 text-sm font-body">
+          <i class="fa-solid fa-circle-check text-green-500"></i>
+          <span id="verify-success-text">Certificate verified! Scrolling to member...</span>
+        </div>
+      </div>
+      <p class="text-xs text-gray-400 font-body mt-3 text-center">Verification IDs are printed on official Pulse Certificates of Recognition.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════
+     HIGH BOARD
+═══════════════════════════════ -->
+<section class="bg-white py-16 px-6" id="section-highboard">
+  <div class="max-w-5xl mx-auto">
+    <div class="reveal mb-10 flex flex-col items-center text-center gap-3">
+      <span class="section-label"><i class="fa-solid fa-crown"></i> High Board</span>
+      <h2 class="font-display font-extrabold text-ink" style="font-size:clamp(1.5rem,3vw,2.2rem);">Leadership</h2>
+      <p class="font-body text-slate-500 text-sm max-w-sm leading-relaxed">The visionaries driving Pulse forward, season after season.</p>
+    </div>
+
+    <!-- High Board cards — centered, larger -->
+    <div class="flex flex-wrap justify-center gap-8 reveal">
+
+      <!-- Omar Elbedawy — President -->
+      <div class="flex flex-col items-center gap-3 w-52 sm:w-64">
+        <div id="card-omar" class="member-card w-full" style="aspect-ratio:3/4;">
+          <img src="images/hb_omar.jpg" alt="Omar Elbedawy" onerror="this.src='https://ui-avatars.com/api/?name=Omar+Elbedawy&background=FFD23F&color=0D0D0D&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-base leading-tight">Omar Elbedawy</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5 font-medium">President</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-bold text-ink text-sm">Omar Elbedawy</div>
+          <div class="font-body text-slate-500 text-xs mt-0.5">President</div>
+          <span class="inline-block mt-1.5 px-2 py-0.5 bg-yellow-pulse/20 text-yellow-deep text-[10px] font-bold rounded-full font-display tracking-wide">HIGH BOARD</span>
+        </div>
+      </div>
+
+      <!-- AbdelRahman Ahmed — Vice President -->
+      <div class="flex flex-col items-center gap-3 w-52 sm:w-64">
+        <div id="card-abdelrahman" class="member-card w-full" style="aspect-ratio:3/4;">
+          <img src="images/hb_abdelrahman.jpg" alt="AbdelRahman Ahmed" onerror="this.src='https://ui-avatars.com/api/?name=AbdelRahman+Ahmed&background=FFD23F&color=0D0D0D&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-base leading-tight">AbdelRahman Ahmed</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5 font-medium">Vice President</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-bold text-ink text-sm">AbdelRahman Ahmed</div>
+          <div class="font-body text-slate-500 text-xs mt-0.5">Vice President</div>
+          <span class="inline-block mt-1.5 px-2 py-0.5 bg-yellow-pulse/20 text-yellow-deep text-[10px] font-bold rounded-full font-display tracking-wide">HIGH BOARD</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════
+     COMMITTEE 1 — COI & OC
+═══════════════════════════════ -->
+<section class="bg-gray-50 py-16 px-6" id="section-coi">
+  <div class="max-w-6xl mx-auto">
+    <div class="reveal mb-10">
+      <div class="committee-header">
+        <span class="section-label mb-3 inline-flex"><i class="fa-solid fa-users"></i> Committee 1</span>
+        <h2 class="font-display font-extrabold text-ink mt-2" style="font-size:clamp(1.4rem,3vw,2rem);">Community, OC & Initiatives</h2>
+        <p class="font-body text-slate-500 text-sm mt-1.5 max-w-lg leading-relaxed">Organizing events, running initiatives, and building the community from the ground up.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 reveal">
+
+      <!-- AbdelKarim Mohammed -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-abdelkarim" class="member-card w-full">
+          <img src="images/oc_abdelkarim.jpg" alt="AbdelKarim Mohammed" onerror="this.src='https://ui-avatars.com/api/?name=AbdelKarim+Mohammed&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">AbdelKarim Mohammed</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">OC Specialist</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">AbdelKarim Mohammed</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">OC Specialist</div>
+        </div>
+      </div>
+
+      <!-- Bassant Hesham -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-bassant" class="member-card w-full">
+          <img src="images/oc_bassant.jpg" alt="Bassant Hesham" onerror="this.src='https://ui-avatars.com/api/?name=Bassant+Hesham&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Bassant Hesham</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">OC Specialist</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Bassant Hesham</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">OC Specialist</div>
+        </div>
+      </div>
+
+      <!-- Yara Ebrahim -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-yara" class="member-card w-full">
+          <img src="images/oc_yara.jpg" alt="Yara Ebrahim" onerror="this.src='https://ui-avatars.com/api/?name=Yara+Ebrahim&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Yara Ebrahim</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">OC Specialist</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Yara Ebrahim</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">OC Specialist</div>
+        </div>
+      </div>
+
+      <!-- Mohammed Eldaly -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-eldaly" class="member-card w-full">
+          <img src="images/oc_eldaly.jpg" alt="Mohammed Eldaly" onerror="this.src='https://ui-avatars.com/api/?name=Mohammed+Eldaly&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Mohammed Eldaly</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">OC Specialist</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Mohammed Eldaly</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">OC Specialist</div>
+        </div>
+      </div>
+
+      <!-- Yousef Ellawaty -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-yousef-ellawaty" class="member-card w-full">
+          <img src="images/coi_cs_yousef.jpg" alt="Yousef Ellawaty" onerror="this.src='https://ui-avatars.com/api/?name=Yousef+Ellawaty&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Yousef Ellawaty</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">CS Instructor</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Yousef Ellawaty</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">CS Instructor</div>
+        </div>
+      </div>
+
+      <!-- Yassin Hossam -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-yassin" class="member-card w-full">
+          <img src="images/coi_cs_yassin.jpg" alt="Yassin Hossam" onerror="this.src='https://ui-avatars.com/api/?name=Yassin+Hossam&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Yassin Hossam</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">CS Instructor</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Yassin Hossam</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">CS Instructor</div>
+        </div>
+      </div>
+
+      <!-- Shaimaa Mohammed -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-shaimaa" class="member-card w-full">
+          <img src="images/coi_res_shaimaa.jpg" alt="Shaimaa Mohammed" onerror="this.src='https://ui-avatars.com/api/?name=Shaimaa+Mohammed&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Shaimaa Mohammed</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">Research Specialist</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Shaimaa Mohammed</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">Research Specialist</div>
+        </div>
+      </div>
+
+      <!-- Gloria Michael -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-gloria" class="member-card w-full">
+          <img src="images/coi_res_gloria.jpg" alt="Gloria Michael" onerror="this.src='https://ui-avatars.com/api/?name=Gloria+Michael&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Gloria Michael</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">Research Specialist</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Gloria Michael</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">Research Specialist</div>
+        </div>
+      </div>
+
+      <!-- Huda Ibrahim -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-huda" class="member-card w-full">
+          <img src="images/coi_res_huda.jpg" alt="Huda Ibrahim" onerror="this.src='https://ui-avatars.com/api/?name=Huda+Ibrahim&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Huda Ibrahim</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">Research Specialist</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Huda Ibrahim</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">Research Specialist</div>
+        </div>
+      </div>
+
+      <!-- Omar Mowafi -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-omar-mowafi" class="member-card w-full">
+          <img src="images/coi_biz_omar.jpg" alt="Omar Mowafi" onerror="this.src='https://ui-avatars.com/api/?name=Omar+Mowafi&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Omar Mowafi</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">Biz & Pitching Specialist</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Omar Mowafi</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">Biz & Pitching Specialist</div>
+        </div>
+      </div>
+
+      <!-- Ali ElSaqa -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-ali-elsaqa" class="member-card w-full">
+          <img src="images/coi_biz_ali.jpg" alt="Ali ElSaqa" onerror="this.src='https://ui-avatars.com/api/?name=Ali+ElSaqa&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Ali ElSaqa</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">Biz & Pitching Specialist</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Ali ElSaqa</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">Biz & Pitching Specialist</div>
+        </div>
+      </div>
+
+      <!-- Abdelhameed Emad -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-abdelhameed" class="member-card w-full">
+          <img src="images/coi_biz_abdelhameed.jpg" alt="Abdelhameed Emad" onerror="this.src='https://ui-avatars.com/api/?name=Abdelhameed+Emad&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Abdelhameed Emad</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">Biz & Pitching Specialist</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Abdelhameed Emad</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">Biz & Pitching Specialist</div>
+        </div>
+      </div>
+
+      <!-- Osama Farahat -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-osama" class="member-card w-full">
+          <img src="images/coi_oly_osama.jpg" alt="Osama Farahat" onerror="this.src='https://ui-avatars.com/api/?name=Osama+Farahat&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Osama Farahat</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">Academic Olympics Specialist</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Osama Farahat</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">Academic Olympics Specialist</div>
+        </div>
+      </div>
+
+      <!-- AlShaimaa Enar -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-alshaimaa" class="member-card w-full">
+          <img src="images/coi_oly_alshaimaa.jpg" alt="AlShaimaa Enar" onerror="this.src='https://ui-avatars.com/api/?name=AlShaimaa+Enar&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">AlShaimaa Enar</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">Academic Olympics Specialist</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">AlShaimaa Enar</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">Academic Olympics Specialist</div>
+        </div>
+      </div>
+
+      <!-- Nour Elsheikh -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-nour" class="member-card w-full">
+          <img src="images/coi_ling_nour.jpg" alt="Nour Elsheikh" onerror="this.src='https://ui-avatars.com/api/?name=Nour+Elsheikh&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Nour Elsheikh</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">Linguistics Specialist</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Nour Elsheikh</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">Linguistics Specialist</div>
+        </div>
+      </div>
+
+      <!-- Ali Abdolmoniem -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-ali-abdolmoniem" class="member-card w-full">
+          <img src="images/coi_vol_ali.jpg" alt="Ali Abdolmoniem" onerror="this.src='https://ui-avatars.com/api/?name=Ali+Abdolmoniem&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Ali Abdolmoniem</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">Volunteering Community Lead</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Ali Abdolmoniem</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">Volunteering Community Lead</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════
+     COMMITTEE 2 — MARKETING & MEDIA
+═══════════════════════════════ -->
+<section class="bg-white py-16 px-6" id="section-marketing">
+  <div class="max-w-6xl mx-auto">
+    <div class="reveal mb-10">
+      <div class="committee-header">
+        <span class="section-label mb-3 inline-flex"><i class="fa-solid fa-bullhorn"></i> Committee 2</span>
+        <h2 class="font-display font-extrabold text-ink mt-2" style="font-size:clamp(1.4rem,3vw,2rem);">Marketing & Media</h2>
+        <p class="font-body text-slate-500 text-sm mt-1.5 max-w-lg leading-relaxed">Crafting the Pulse story — from content creation to visual identity and media production.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 reveal">
+
+      <!-- Ahmed Reda -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-ahmed-reda" class="member-card w-full">
+          <img src="images/marketing_reda.jpg" alt="Ahmed Reda" onerror="this.src='https://ui-avatars.com/api/?name=Ahmed+Reda&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Ahmed Reda</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">Marketing Specialist</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Ahmed Reda</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">Marketing Specialist</div>
+        </div>
+      </div>
+
+      <!-- Safy Hesham -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-safy" class="member-card w-full">
+          <img src="images/media_safy.jpg" alt="Safy Hesham" onerror="this.src='https://ui-avatars.com/api/?name=Safy+Hesham&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Safy Hesham</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">PR & Content Specialist</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Safy Hesham</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">PR & Content Specialist</div>
+        </div>
+      </div>
+
+      <!-- Dareen Mohammed -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-dareen" class="member-card w-full">
+          <img src="images/media_dareen.jpg" alt="Dareen Mohammed" onerror="this.src='https://ui-avatars.com/api/?name=Dareen+Mohammed&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Dareen Mohammed</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">Visual & Graphic Designer</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Dareen Mohammed</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">Visual & Graphic Designer</div>
+        </div>
+      </div>
+
+      <!-- Ahmed Mahmoud -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-ahmed-mahmoud" class="member-card w-full">
+          <img src="images/media_mahmoud.jpg" alt="Ahmed Mahmoud" onerror="this.src='https://ui-avatars.com/api/?name=Ahmed+Mahmoud&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Ahmed Mahmoud</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">Visual & Graphic Designer</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Ahmed Mahmoud</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">Visual & Graphic Designer</div>
+        </div>
+      </div>
+
+      <!-- Yousef Ragab -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-yousef-ragab" class="member-card w-full">
+          <img src="images/media_yousef.jpg" alt="Yousef Ragab" onerror="this.src='https://ui-avatars.com/api/?name=Yousef+Ragab&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Yousef Ragab</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">Media Production & Photography</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Yousef Ragab</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">Media Production & Photography</div>
+        </div>
+      </div>
+
+      <!-- Sara Wessam -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-sara" class="member-card w-full">
+          <img src="images/media_sara.jpg" alt="Sara Wessam" onerror="this.src='https://ui-avatars.com/api/?name=Sara+Wessam&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Sara Wessam</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">Media Production & Photography</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Sara Wessam</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">Media Production & Photography</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════
+     COMMITTEE 3 — SCHOLARSHIPS & ADMISSIONS
+═══════════════════════════════ -->
+<section class="bg-gray-50 py-16 px-6" id="section-scholarships">
+  <div class="max-w-6xl mx-auto">
+    <div class="reveal mb-10">
+      <div class="committee-header">
+        <span class="section-label mb-3 inline-flex"><i class="fa-solid fa-graduation-cap"></i> Committee 3</span>
+        <h2 class="font-display font-extrabold text-ink mt-2" style="font-size:clamp(1.4rem,3vw,2rem);">Scholarships & Admissions</h2>
+        <p class="font-body text-slate-500 text-sm mt-1.5 max-w-lg leading-relaxed">Identifying talent, running sessions, and opening doors to scholarship opportunities worldwide.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 max-w-2xl reveal">
+
+      <!-- Mohammed Osama -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-mohammed-osama" class="member-card w-full">
+          <img src="images/sa_osama.jpg" alt="Mohammed Osama" onerror="this.src='https://ui-avatars.com/api/?name=Mohammed+Osama&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Mohammed Osama</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">Interviewer & Talent Acquisition</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Mohammed Osama</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">Interviewer & Talent Acquisition</div>
+        </div>
+      </div>
+
+      <!-- Mark Hany -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-mark" class="member-card w-full">
+          <img src="images/sa_mark.jpg" alt="Mark Hany" onerror="this.src='https://ui-avatars.com/api/?name=Mark+Hany&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Mark Hany</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">Interviewer & Talent Acquisition</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Mark Hany</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">Interviewer & Talent Acquisition</div>
+        </div>
+      </div>
+
+      <!-- Anas Ebrahim -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-anas" class="member-card w-full">
+          <img src="images/sa_anas.jpg" alt="Anas Ebrahim" onerror="this.src='https://ui-avatars.com/api/?name=Anas+Ebrahim&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Anas Ebrahim</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">Session Lead</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Anas Ebrahim</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">Session Lead</div>
+        </div>
+      </div>
+
+      <!-- Haneen Abdelrazik -->
+      <div class="flex flex-col items-center gap-2.5">
+        <div id="card-haneen" class="member-card w-full">
+          <img src="images/sa_haneen.jpg" alt="Haneen Abdelrazik" onerror="this.src='https://ui-avatars.com/api/?name=Haneen+Abdelrazik&background=0D0D0D&color=FFD23F&size=400&font-size=0.33&bold=true'" />
+          <div class="member-overlay">
+            <div class="flex items-end justify-between">
+              <div>
+                <div class="font-display font-extrabold text-white text-sm leading-tight">Haneen Abdelrazik</div>
+                <div class="text-yellow-pulse font-body text-xs mt-0.5">Session Lead</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="verified-badge">✅ Verified Authenticated</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display font-semibold text-ink text-xs leading-tight">Haneen Abdelrazik</div>
+          <div class="font-body text-slate-400 text-[10px] mt-0.5">Session Lead</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════
+     APPLY CTA — Season 2026/2027
+═══════════════════════════════ -->
+<section class="bg-yellow-pulse py-20 px-6 relative overflow-hidden">
+  <div class="absolute -top-8 -left-8 w-40 h-40 rounded-full bg-white/10 pointer-events-none"></div>
+  <div class="absolute -bottom-12 -right-12 w-64 h-64 rounded-full bg-white/10 pointer-events-none"></div>
+  <div class="max-w-3xl mx-auto text-center relative z-10 reveal">
+    <div class="inline-flex items-center gap-2 bg-ink/10 text-ink/70 text-xs font-medium px-4 py-2 rounded-full mb-5 font-body">
+      <span class="w-2 h-2 rounded-full bg-ink/60 dot-pulse"></span>
+      Now Recruiting · Season 2026/2027
+    </div>
+    <h2 class="font-display font-extrabold text-ink leading-tight mb-5" style="font-size:clamp(1.8rem,4vw,2.8rem);">
+      Be Part of the<br/>Next Chapter.
+    </h2>
+    <p class="font-body text-ink/65 max-w-lg mx-auto mb-10 leading-relaxed">
+      Applications for Season 2026/2027 are now open. Join a team that empowers, creates, and builds legacies — and earn your Certificate of Recognition upon completion.
+    </p>
+    <a href="https://forms.gle/kkAWEy8sTDc9a6iB7" target="_blank" rel="noopener"
+       class="cta-pulse inline-flex items-center gap-3 bg-ink text-white font-display font-extrabold px-10 py-5 rounded-2xl text-lg hover:scale-105 hover:shadow-lg transition-all duration-300">
+      Apply Now 🚀 — Season 2026/2027
+    </a>
+    <p class="text-ink/40 font-body text-xs mt-5">Limited spots available. Applications close when filled.</p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════
+     FOOTER
+═══════════════════════════════ -->
+<footer class="bg-ink text-white py-14 px-6">
+  <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-10">
+    <div class="text-center md:text-left">
+      <img src="images/logo.webp" alt="Pulse" class="h-14 w-auto object-contain mb-3 mx-auto md:mx-0" style="background:transparent;mix-blend-mode:screen;filter:brightness(1.4);" />
+      <p class="font-body text-white/40 text-sm max-w-xs leading-relaxed">
+        Youth-led tech &amp; scholarship community.<br/>We build, learn, and lead — together.
+      </p>
+    </div>
+    <div class="flex flex-col gap-3 text-center md:text-left">
+      <span class="font-display font-bold text-white/40 text-xs uppercase tracking-widest mb-1">Navigate</span>
+      <a href="index.html#what-we-do" class="text-sm text-white/65 hover:text-yellow-pulse transition-colors">What We Do</a>
+      <a href="index.html#events" class="text-sm text-white/65 hover:text-yellow-pulse transition-colors">Events</a>
+      <a href="index.html#committees" class="text-sm text-white/65 hover:text-yellow-pulse transition-colors">Committees</a>
+      <a href="team.html" class="text-sm text-white/65 hover:text-yellow-pulse transition-colors">Our Team</a>
+      <a href="https://forms.gle/kkAWEy8sTDc9a6iB7" target="_blank" rel="noopener"
+         class="text-sm text-white/65 hover:text-yellow-pulse transition-colors">Apply Now</a>
+    </div>
+    <div class="flex flex-col items-center md:items-end gap-5">
+      <span class="font-display font-bold text-white/40 text-xs uppercase tracking-widest">Follow Us</span>
+      <div class="flex gap-5 text-white/45 text-xl">
+        <a href="https://www.facebook.com/pulsekfs" target="_blank" rel="noopener" class="soc" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/pulse_kfs_club/" target="_blank" rel="noopener" class="soc" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.youtube.com/channel/UCKDnYSp00fgy9Wz73GiP4xQ" target="_blank" rel="noopener" class="soc" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        <a href="https://www.linkedin.com/company/pulsekfs/" target="_blank" rel="noopener" class="soc" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://linktr.ee/pulsekfs" target="_blank" rel="noopener" class="soc" aria-label="Linktree"><i class="fa-solid fa-tree"></i></a>
+      </div>
+      <a href="https://forms.gle/kkAWEy8sTDc9a6iB7" target="_blank" rel="noopener"
+         class="inline-flex items-center gap-2 bg-yellow-pulse text-ink font-display font-bold px-6 py-3 rounded-full text-sm hover:shadow-glow hover:scale-105 transition-all">
+        <i class="fa-solid fa-rocket"></i> Apply Now
+      </a>
+    </div>
+  </div>
+  <div class="max-w-5xl mx-auto border-t border-white/10 mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-2 text-white/20 text-xs">
+    <span>&copy; 2026 Pulse Community. All rights reserved.</span>
+    <span>Built with ⚡ by the Pulse Media Team</span>
+  </div>
+</footer>
+
+<!-- Toast notification -->
+<div id="toast">
+  <i class="fa-solid fa-circle-xmark mr-2"></i>Invalid Certificate ID. Please try again.
+</div>
+
+
+<script>
+  // ══════════════════════════════════════════
+  //  NAVBAR
+  // ══════════════════════════════════════════
+  const nav = document.getElementById("navbar");
+  window.addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 60));
+
+  const hbg = document.getElementById("hamburger");
+  const mob = document.getElementById("mobile-menu");
+  hbg.addEventListener("click", () => {
+    mob.classList.toggle("open");
+    const ic = hbg.querySelector("i");
+    ic.classList.toggle("fa-bars"); ic.classList.toggle("fa-xmark");
+  });
+  document.querySelectorAll(".mobile-link").forEach(l => l.addEventListener("click", () => {
+    mob.classList.remove("open");
+    const ic = hbg.querySelector("i");
+    ic.classList.add("fa-bars"); ic.classList.remove("fa-xmark");
+  }));
+
+  // ══════════════════════════════════════════
+  //  SCROLL REVEAL
+  // ══════════════════════════════════════════
+  const obs = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add("visible"); obs.unobserve(e.target); }
+  }), { threshold: 0.08 });
+  document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
+
+  // ══════════════════════════════════════════
+  //  VERIFICATION ID → CARD ID MAPPING
+  // ══════════════════════════════════════════
+  const verificationMap = {
+    // High Board
+    "PULSE26-OMAR-ELBEDAWY":        "card-omar",
+    "PULSE26-RAHMAN-AHMED":         "card-abdelrahman",
+    // Committee 1 — COI & OC
+    "PULSE26-KARIM-MOHAMMED":       "card-abdelkarim",
+    "PULSE26-BASSANT-HESHAM":       "card-bassant",
+    "PULSE26-YARA-EBRAHIM":         "card-yara",
+    "PULSE26-MOHAMMED-ELDALY":      "card-eldaly",
+    "PULSE26-YOUSEF-ELLAWATY":      "card-yousef-ellawaty",
+    "PULSE26-YASSIN-HOSSAM":        "card-yassin",
+    "PULSE26-SHAIMAA-MOHAMMED":     "card-shaimaa",
+    "PULSE26-GLORIA-MICHAEL":       "card-gloria",
+    "PULSE26-HUDA-IBRAHIM":         "card-huda",
+    "PULSE26-OMAR-MOWAFI":          "card-omar-mowafi",
+    "PULSE26-ALI-ELSAQA":           "card-ali-elsaqa",
+    "PULSE26-ABDETHAMEED-EMAD":     "card-abdelhameed",
+    "PULSE26-OSAMA-FARAHAT":        "card-osama",
+    "PULSE26-ALSHAIMAA-ENAR":       "card-alshaimaa",
+    "PULSE26-NOUR-ELSHEIKH":        "card-nour",
+    "PULSE26-ALI-ABDOLMONIEM":      "card-ali-abdolmoniem",
+    // Committee 2 — Marketing & Media
+    "PULSE26-AHMED-REDA":           "card-ahmed-reda",
+    "PULSE26-SAFY-HESHAM":          "card-safy",
+    "PULSE26-DAREEN-MOHAMMED":      "card-dareen",
+    "PULSE26-AHMED-MAHMOUD":        "card-ahmed-mahmoud",
+    "PULSE26-YOUSEF-RAGAB":         "card-yousef-ragab",
+    "PULSE26-SARA-WESSAM":          "card-sara",
+    // Committee 3 — Scholarships & Admissions
+    "PULSE26-MOHAMMED-OSAMA":       "card-mohammed-osama",
+    "PULSE26-MARK-HANY":            "card-mark",
+    "PULSE26-ANAS-EBRAHIM":         "card-anas",
+    "PULSE26-HANEEN-ABDELRAZIK":    "card-haneen",
+  };
+
+  // Name map for success message
+  const nameMap = {
+    "card-omar":            "Omar Elbedawy — President",
+    "card-abdelrahman":     "AbdelRahman Ahmed — Vice President",
+    "card-abdelkarim":      "AbdelKarim Mohammed",
+    "card-bassant":         "Bassant Hesham",
+    "card-yara":            "Yara Ebrahim",
+    "card-eldaly":          "Mohammed Eldaly",
+    "card-yousef-ellawaty": "Yousef Ellawaty",
+    "card-yassin":          "Yassin Hossam",
+    "card-shaimaa":         "Shaimaa Mohammed",
+    "card-gloria":          "Gloria Michael",
+    "card-huda":            "Huda Ibrahim",
+    "card-omar-mowafi":     "Omar Mowafi",
+    "card-ali-elsaqa":      "Ali ElSaqa",
+    "card-abdelhameed":     "Abdelhameed Emad",
+    "card-osama":           "Osama Farahat",
+    "card-alshaimaa":       "AlShaimaa Enar",
+    "card-nour":            "Nour Elsheikh",
+    "card-ali-abdolmoniem": "Ali Abdolmoniem",
+    "card-ahmed-reda":      "Ahmed Reda",
+    "card-safy":            "Safy Hesham",
+    "card-dareen":          "Dareen Mohammed",
+    "card-ahmed-mahmoud":   "Ahmed Mahmoud",
+    "card-yousef-ragab":    "Yousef Ragab",
+    "card-sara":            "Sara Wessam",
+    "card-mohammed-osama":  "Mohammed Osama",
+    "card-mark":            "Mark Hany",
+    "card-anas":            "Anas Ebrahim",
+    "card-haneen":          "Haneen Abdelrazik",
+  };
+
+  let activeCard = null;
+  let clearTimer = null;
+
+  function clearVerification() {
+    if (activeCard) {
+      activeCard.classList.remove("verified");
+      activeCard.style.boxShadow = "";
+      activeCard = null;
+    }
+  }
+
+  function runVerification() {
+    const input = document.getElementById("verify-input");
+    const errorEl = document.getElementById("verify-error");
+    const successEl = document.getElementById("verify-success");
+    const successText = document.getElementById("verify-success-text");
+    const rawId = input.value.trim().toUpperCase();
+
+    // Reset UI
+    errorEl.classList.add("hidden");
+    successEl.classList.add("hidden");
+    clearVerification();
+    if (clearTimer) clearTimeout(clearTimer);
+
+    if (!rawId) return;
+
+    const cardId = verificationMap[rawId];
+
+    if (!cardId) {
+      // Invalid ID
+      errorEl.classList.remove("hidden");
+      // Also show toast
+      const toast = document.getElementById("toast");
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 3500);
+      return;
+    }
+
+    // Valid — scroll and highlight
+    const card = document.getElementById(cardId);
+    if (!card) return;
+
+    const memberName = nameMap[cardId] || "Member";
+    successText.textContent = `✅ Certificate verified! Scrolling to: ${memberName}`;
+    successEl.classList.remove("hidden");
+
+    // Smooth scroll
+    const offset = 100;
+    const top = card.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: "smooth" });
+
+    // Apply green glow + verified badge after short delay (let scroll settle)
+    setTimeout(() => {
+      card.classList.add("verified");
+      activeCard = card;
+    }, 400);
+
+    // Auto-remove after 4 seconds
+    clearTimer = setTimeout(() => {
+      clearVerification();
+    }, 4400);
+  }
+
+  document.getElementById("verify-btn").addEventListener("click", runVerification);
+  document.getElementById("verify-input").addEventListener("keydown", e => {
+    if (e.key === "Enter") runVerification();
+  });
+</script>
+</body>
+</html>
