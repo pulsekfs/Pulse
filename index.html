@@ -720,9 +720,10 @@
          class="cta-pulse inline-flex items-center gap-3 bg-yellow-pulse text-ink font-display font-extrabold px-10 py-5 rounded-2xl text-lg hover:scale-105 hover:shadow-glow transition-all duration-300">
         Apply for the New Season 🚀
       </a>
-<div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur border border-white/30 text-white font-display font-bold px-7 py-5 rounded-2xl text-base">
-  <i class="fa-solid fa-clock text-yellow-pulse"></i> Deadline: June 15, 2026
-</div>
+      <a href="https://linktr.ee/pulsekfs" target="_blank" rel="noopener"
+         class="inline-flex items-center gap-2 bg-white/15 backdrop-blur border border-white/30 text-white font-display font-bold px-7 py-5 rounded-2xl text-base hover:bg-white/25 transition-all duration-300">
+        <i class="fa-solid fa-link text-yellow-pulse"></i> All Our Links
+      </a>
     </div>
 
     <div class="flex items-center justify-center gap-6 mt-10 text-white/45 text-xl animate__animated animate__fadeInUp" style="animation-delay:.5s;">
@@ -983,7 +984,6 @@
     <h2 class="font-display font-extrabold text-ink leading-tight mb-5" style="font-size:clamp(1.8rem,4vw,2.8rem);">
       Start Your Journey.<br/>Earn Your Legacy.
     </h2>
-    <p class="font-display font-bold text-ink text-sm mb-3">⏳ Applications close June 15, 2026</p>
     <p class="font-body text-ink/65 max-w-lg mx-auto mb-10 leading-relaxed">
       Apply for Season 2026 and receive a certified Certificate of Recognition upon completion to showcase your impact.
     </p>
@@ -1057,11 +1057,382 @@
   </div>
 
   <div class="max-w-5xl mx-auto border-t border-white/10 mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-2 text-white/20 text-xs">
-    <span>&copy; 2026 Pulse Community. All rights reserved.</span>
+    <span>&copy; 2026 Pulse Community. All rights reserved<span id="easter-dot" title="" style="cursor:default;user-select:none;transition:color .2s" onmouseenter="this.style.cursor='crosshair'" onmouseleave="this.style.cursor='default'">.</span></span>
     <span>Built with ⚡ by the Pulse Media Team</span>
   </div>
 </footer>
 
+
+<!-- ═══ EASTER EGG 1 — HIDDEN CLICK MODAL ═══ -->
+<div id="click-modal" style="display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;">
+  <div id="click-backdrop" style="position:absolute;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);" onclick="closeClickModal()"></div>
+  <div id="click-box" style="
+    position:relative;z-index:1;
+    background:#fff;border-radius:2rem;
+    padding:2.5rem 2.8rem;max-width:420px;width:90%;
+    box-shadow:0 32px 80px rgba(0,0,0,.28),0 0 0 2px rgba(255,210,63,.4);
+    text-align:center;
+    animation:clickModalIn .45s cubic-bezier(.34,1.56,.64,1) both;
+  ">
+    <canvas id="confetti-canvas" style="position:absolute;inset:0;border-radius:2rem;pointer-events:none;width:100%;height:100%;"></canvas>
+    <div style="font-size:3rem;margin-bottom:.6rem;">🎉</div>
+    <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.35rem;font-weight:800;color:#0D0D0D;margin-bottom:.7rem;">Boom! You found the hidden element.</h3>
+    <p style="font-family:'DM Sans',sans-serif;color:#555;font-size:.95rem;margin-bottom:1.2rem;">Your secret Application Code is:</p>
+    <div style="background:#0D0D0D;color:#FFD23F;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.15rem;padding:.75rem 1.5rem;border-radius:1rem;letter-spacing:.08em;margin-bottom:1.5rem;">PULSE-CLICK-26</div>
+    <button onclick="closeClickModal()" style="background:#FFD23F;color:#0D0D0D;border:none;border-radius:1rem;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.95rem;padding:.7rem 2rem;cursor:pointer;transition:transform .2s,box-shadow .2s;" onmouseenter="this.style.transform='scale(1.06)'" onmouseleave="this.style.transform='scale(1)'">Got it! ✓</button>
+  </div>
+</div>
+
+<!-- ═══ EASTER EGG 2 — MASTER HACKER MODAL ═══ -->
+<canvas id="matrix-canvas" style="display:none;position:fixed;inset:0;z-index:9990;pointer-events:none;"></canvas>
+<div id="hacker-modal" style="display:none;position:fixed;inset:0;z-index:9998;align-items:center;justify-content:center;">
+  <div id="hacker-backdrop" style="position:absolute;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);" onclick="closeHackerModal()"></div>
+  <div id="hacker-box" style="
+    position:relative;z-index:1;
+    background:#0a0a0a;border-radius:1.5rem;
+    padding:2.2rem 2.4rem;max-width:500px;width:92%;
+    border:1.5px solid #00ff9d;
+    box-shadow:0 0 60px rgba(0,255,157,.25),0 0 120px rgba(0,255,157,.1),inset 0 0 60px rgba(0,255,157,.04);
+    text-align:center;
+    animation:hackerIn .4s cubic-bezier(.34,1.56,.64,1) both;
+  ">
+    <canvas id="particle-canvas" style="position:absolute;inset:0;border-radius:1.5rem;pointer-events:none;width:100%;height:100%;"></canvas>
+
+    <!-- Header -->
+    <div style="font-size:2.4rem;margin-bottom:.4rem;">⌨️</div>
+    <div id="hacker-countdown" style="font-family:monospace;color:#00ff9d;font-size:.85rem;letter-spacing:.12em;margin-bottom:.8rem;opacity:.8;">ACCESS GRANTED IN <span id="cdnum">3</span>...</div>
+
+    <!-- Glitch text -->
+    <h3 id="hacker-title" style="font-family:monospace;font-size:1.25rem;font-weight:700;color:#00ff9d;margin-bottom:.5rem;text-shadow:0 0 12px #00ff9d,0 0 24px #00ff9d40;letter-spacing:.05em;" class="glitch-text">Master Hacker!</h3>
+    <p id="hacker-sub" style="font-family:monospace;color:#aaffdd;font-size:.88rem;margin-bottom:.5rem;min-height:1.2em;"></p>
+    <p style="font-family:monospace;color:#aaffdd;font-size:.88rem;margin-bottom:.3rem;">Your VIP Code is:</p>
+    <div id="vip-code-box" style="background:#00ff9d10;color:#00ff9d;font-family:monospace;font-weight:700;font-size:1.1rem;padding:.65rem 1.2rem;border-radius:.75rem;border:1px solid #00ff9d40;letter-spacing:.1em;margin-bottom:.4rem;text-shadow:0 0 8px #00ff9d;">PULSE-KEY-26</div>
+
+    <!-- Copy button -->
+    <button id="copy-btn" onclick="copyVIP()" style="background:transparent;color:#00ff9d;border:1px solid #00ff9d40;border-radius:.6rem;font-family:monospace;font-size:.78rem;padding:.35rem 1rem;cursor:pointer;margin-bottom:1rem;transition:all .2s;" onmouseenter="this.style.background='#00ff9d20'" onmouseleave="this.style.background='transparent'">[ COPY CODE ]</button>
+
+    <!-- Terminal -->
+    <div id="hacker-terminal" style="background:#000;border-radius:1rem;padding:.9rem 1rem;text-align:left;font-family:monospace;font-size:.72rem;color:#00ff9d;max-height:130px;overflow:hidden;border:1px solid #00ff9d22;margin-bottom:1.2rem;line-height:1.7;">
+      <div style="color:#555;margin-bottom:.3rem;">root@pulse ~ %</div>
+    </div>
+
+    <button onclick="closeHackerModal()" style="background:#00ff9d;color:#000;border:none;border-radius:.8rem;font-family:monospace;font-weight:700;font-size:.9rem;padding:.6rem 2rem;cursor:pointer;letter-spacing:.05em;transition:transform .2s,box-shadow .2s;box-shadow:0 0 16px #00ff9d55;" onmouseenter="this.style.transform='scale(1.06)'" onmouseleave="this.style.transform='scale(1)'">[ CLOSE_TERMINAL ]</button>
+  </div>
+</div>
+
+<style>
+  @keyframes clickModalIn{from{opacity:0;transform:scale(.8) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+  @keyframes hackerIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+  @keyframes screenShake{
+    0%,100%{transform:translate(0,0) rotate(0)}
+    10%{transform:translate(-4px,2px) rotate(-.3deg)}
+    20%{transform:translate(4px,-2px) rotate(.3deg)}
+    30%{transform:translate(-6px,3px) rotate(-.4deg)}
+    40%{transform:translate(6px,-1px) rotate(.2deg)}
+    50%{transform:translate(-3px,4px) rotate(-.2deg)}
+    60%{transform:translate(3px,-3px) rotate(.3deg)}
+    70%{transform:translate(-2px,2px) rotate(-.1deg)}
+    80%{transform:translate(2px,-2px) rotate(.1deg)}
+    90%{transform:translate(-1px,1px) rotate(0)}
+  }
+  @keyframes flicker{
+    0%,100%{opacity:1}10%{opacity:.7}20%{opacity:1}35%{opacity:.5}40%{opacity:1}55%{opacity:.8}60%{opacity:1}75%{opacity:.6}80%{opacity:1}
+  }
+  .shake-screen{animation:screenShake .6s ease both}
+  .flicker{animation:flicker .8s ease both}
+  .glitch-text{position:relative}
+  .glitch-text::before,.glitch-text::after{
+    content:attr(data-text);position:absolute;top:0;left:0;right:0;
+    font-family:monospace;font-size:inherit;font-weight:inherit;
+  }
+  .glitch-text::before{color:#ff00cc;clip-path:polygon(0 30%,100% 30%,100% 50%,0 50%);transform:translate(-3px,0);animation:glitch1 2s infinite linear}
+  .glitch-text::after{color:#00ccff;clip-path:polygon(0 60%,100% 60%,100% 80%,0 80%);transform:translate(3px,0);animation:glitch2 2.4s infinite linear}
+  @keyframes glitch1{0%,90%,100%{transform:translate(-3px,0)}5%{transform:translate(3px,2px)}15%{transform:translate(-2px,-1px)}}
+  @keyframes glitch2{0%,85%,100%{transform:translate(3px,0)}10%{transform:translate(-3px,-2px)}20%{transform:translate(2px,1px)}}
+</style>
+
+<script>
+  // ════════════════════════════════════════════
+  //  EASTER EGG 1 — Hidden Click (confetti)
+  // ════════════════════════════════════════════
+  document.getElementById('easter-dot').addEventListener('click', openClickModal);
+
+  function openClickModal() {
+    const modal = document.getElementById('click-modal');
+    modal.style.display = 'flex';
+    requestAnimationFrame(() => startConfetti());
+  }
+  function closeClickModal() {
+    document.getElementById('click-modal').style.display = 'none';
+    stopConfetti();
+  }
+
+  // Lightweight canvas confetti
+  let confettiAnim, confettiParts = [];
+  function startConfetti() {
+    const canvas = document.getElementById('confetti-canvas');
+    const box = document.getElementById('click-box');
+    canvas.width = box.offsetWidth;
+    canvas.height = box.offsetHeight;
+    const ctx = canvas.getContext('2d');
+    confettiParts = Array.from({length:90}, () => ({
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height - canvas.height,
+      r: Math.random()*6+3,
+      d: Math.random()*10+5,
+      color: ['#FFD23F','#F4B800','#ff6b6b','#4ecdc4','#45b7d1','#96ceb4','#ffeaa7','#fd79a8'][Math.floor(Math.random()*8)],
+      tilt: Math.random()*10-10,
+      tiltSpeed: Math.random()*.05+.02,
+      speed: Math.random()*2+1
+    }));
+    function draw() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      confettiParts.forEach(p => {
+        ctx.beginPath();
+        ctx.ellipse(p.x+p.tilt, p.y, p.r, p.r*0.5, p.tilt*Math.PI/180, 0, 2*Math.PI);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+        p.y += p.speed;
+        p.tilt += p.tiltSpeed;
+        if(p.y > canvas.height) { p.y = -10; p.x = Math.random()*canvas.width; }
+      });
+      confettiAnim = requestAnimationFrame(draw);
+    }
+    draw();
+  }
+  function stopConfetti() {
+    cancelAnimationFrame(confettiAnim);
+    confettiParts = [];
+  }
+
+  // ════════════════════════════════════════════
+  //  EASTER EGG 2 — Keystroke "Pulse"
+  // ════════════════════════════════════════════
+  let keyBuffer = '';
+  const SECRET = 'Pulse';
+  document.addEventListener('keydown', e => {
+    if(document.getElementById('hacker-modal').style.display === 'flex') return;
+    keyBuffer += e.key;
+    if(keyBuffer.length > SECRET.length) keyBuffer = keyBuffer.slice(-SECRET.length);
+    if(keyBuffer === SECRET) { keyBuffer = ''; openHackerModal(); }
+  });
+
+  function openHackerModal() {
+    // Screen shake + flicker on body
+    document.body.classList.add('shake-screen');
+    setTimeout(() => document.body.classList.remove('shake-screen'), 700);
+
+    // Show matrix
+    startMatrix();
+
+    const modal = document.getElementById('hacker-modal');
+    modal.style.display = 'flex';
+    document.getElementById('hacker-box').classList.add('flicker');
+    setTimeout(() => document.getElementById('hacker-box').classList.remove('flicker'), 900);
+
+    // Set glitch text data
+    document.getElementById('hacker-title').setAttribute('data-text','Master Hacker!');
+
+    // Typewriter on subtitle
+    typewriterEffect('hacker-sub','You unlocked the ultimate edge.', 45);
+
+    // Countdown
+    startCountdown();
+
+    // Terminal fake commands
+    startTerminal();
+
+    // Neon particle burst
+    startParticles();
+
+    // Sound
+    playHackerSound();
+  }
+
+  function closeHackerModal() {
+    document.getElementById('hacker-modal').style.display = 'none';
+    stopMatrix();
+    stopParticles();
+    clearTimeout(cdTimer);
+    // Reset terminal
+    document.getElementById('hacker-terminal').innerHTML = '<div style="color:#555;margin-bottom:.3rem;">root@pulse ~ %</div>';
+    document.getElementById('hacker-sub').textContent = '';
+    document.getElementById('cdnum').textContent = '3';
+    document.getElementById('hacker-countdown').style.display = 'block';
+    document.getElementById('copy-btn').textContent = '[ COPY CODE ]';
+  }
+
+  // — Typewriter —
+  function typewriterEffect(id, text, delay=50) {
+    const el = document.getElementById(id);
+    el.textContent = '';
+    let i = 0;
+    function tick() {
+      if(i < text.length) { el.textContent += text[i++]; setTimeout(tick, delay); }
+    }
+    tick();
+  }
+
+  // — Countdown —
+  let cdTimer;
+  function startCountdown() {
+    let n = 3;
+    const span = document.getElementById('cdnum');
+    const cdDiv = document.getElementById('hacker-countdown');
+    span.textContent = n;
+    cdDiv.style.display = 'block';
+    function tick() {
+      if(n > 1) { n--; span.textContent = n; cdTimer = setTimeout(tick, 1000); }
+      else { cdDiv.style.display = 'none'; }
+    }
+    cdTimer = setTimeout(tick, 1000);
+  }
+
+  // — Matrix Rain —
+  let matrixAnim;
+  function startMatrix() {
+    const canvas = document.getElementById('matrix-canvas');
+    canvas.style.display = 'block';
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const ctx = canvas.getContext('2d');
+    const cols = Math.floor(canvas.width / 16);
+    const drops = Array(cols).fill(1);
+    function draw() {
+      ctx.fillStyle = 'rgba(0,0,0,.07)';
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle = '#00ff9d';
+      ctx.font = '14px monospace';
+      drops.forEach((y,i) => {
+        const char = String.fromCharCode(0x30A0 + Math.random()*96);
+        ctx.fillText(char, i*16, y*16);
+        if(y*16 > canvas.height && Math.random() > .975) drops[i] = 0;
+        drops[i]++;
+      });
+      matrixAnim = requestAnimationFrame(draw);
+    }
+    draw();
+  }
+  function stopMatrix() {
+    cancelAnimationFrame(matrixAnim);
+    const canvas = document.getElementById('matrix-canvas');
+    canvas.style.display = 'none';
+    canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height);
+  }
+
+  // — Neon Particles —
+  let particleAnim, particles2 = [];
+  function startParticles() {
+    const canvas = document.getElementById('particle-canvas');
+    const box = document.getElementById('hacker-box');
+    canvas.width = box.offsetWidth;
+    canvas.height = box.offsetHeight;
+    const cx = canvas.width/2, cy = canvas.height/2;
+    const ctx = canvas.getContext('2d');
+    particles2 = Array.from({length:80}, () => {
+      const angle = Math.random()*Math.PI*2;
+      const speed = Math.random()*5+2;
+      return {
+        x:cx, y:cy,
+        vx: Math.cos(angle)*speed,
+        vy: Math.sin(angle)*speed,
+        life:1, decay:Math.random()*.02+.01,
+        r:Math.random()*3+1,
+        color:['#00ff9d','#00ccff','#ff00cc','#aaff00'][Math.floor(Math.random()*4)]
+      };
+    });
+    function draw() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      particles2 = particles2.filter(p => p.life > 0);
+      particles2.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.life;
+        ctx.shadowBlur = 10; ctx.shadowColor = p.color;
+        ctx.fill();
+        ctx.globalAlpha = 1; ctx.shadowBlur = 0;
+        p.x += p.vx; p.y += p.vy;
+        p.vy += .08; // gravity
+        p.life -= p.decay;
+      });
+      if(particles2.length > 0) particleAnim = requestAnimationFrame(draw);
+    }
+    draw();
+  }
+  function stopParticles() {
+    cancelAnimationFrame(particleAnim);
+    particles2 = [];
+    const c = document.getElementById('particle-canvas');
+    if(c) c.getContext('2d').clearRect(0,0,c.width,c.height);
+  }
+
+  // — Terminal fake commands —
+  const termLines = [
+    {text:'> initializing breach protocol...', delay:200},
+    {text:'> scanning network nodes...', delay:800},
+    {text:'> bypassing firewall [████████░░] 80%', delay:1500},
+    {text:'> ACCESS GRANTED ✓', delay:2300},
+    {text:'> loading VIP credentials...', delay:3000},
+    {text:'> CODE: PULSE-KEY-26 [ACTIVE]', delay:3700},
+  ];
+  function startTerminal() {
+    const term = document.getElementById('hacker-terminal');
+    term.innerHTML = '<div style="color:#555;margin-bottom:.3rem;">root@pulse ~ %</div>';
+    termLines.forEach(({text,delay}) => {
+      setTimeout(() => {
+        const line = document.createElement('div');
+        line.textContent = text;
+        line.style.color = text.includes('GRANTED') || text.includes('CODE') ? '#00ff9d' : '#888';
+        line.style.marginBottom = '.1rem';
+        term.appendChild(line);
+        term.scrollTop = term.scrollHeight;
+      }, delay);
+    });
+  }
+
+  // — Web Audio beep/glitch —
+  function playHackerSound() {
+    try {
+      const ctx = new (window.AudioContext||window.webkitAudioContext)();
+      function beep(freq, start, dur, type='sawtooth') {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.type = type; osc.frequency.value = freq;
+        gain.gain.setValueAtTime(.15, ctx.currentTime+start);
+        gain.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+start+dur);
+        osc.start(ctx.currentTime+start);
+        osc.stop(ctx.currentTime+start+dur);
+      }
+      beep(880, 0,    .08, 'sawtooth');
+      beep(440, .09,  .06, 'square');
+      beep(1200,.16,  .08, 'sawtooth');
+      beep(220, .25,  .12, 'square');
+      beep(660, .38,  .18, 'sawtooth');
+    } catch(e){}
+  }
+
+  // — Copy to clipboard —
+  function copyVIP() {
+    navigator.clipboard.writeText('PULSE-KEY-26').then(() => {
+      const btn = document.getElementById('copy-btn');
+      btn.textContent = '[ ✓ COPIED! ]';
+      btn.style.color = '#aaff00';
+      setTimeout(() => { btn.textContent = '[ COPY CODE ]'; btn.style.color = '#00ff9d'; }, 2000);
+    }).catch(() => {
+      // Fallback
+      const ta = document.createElement('textarea');
+      ta.value = 'PULSE-KEY-26';
+      document.body.appendChild(ta);
+      ta.select(); document.execCommand('copy');
+      document.body.removeChild(ta);
+      const btn = document.getElementById('copy-btn');
+      btn.textContent = '[ ✓ COPIED! ]';
+      setTimeout(() => btn.textContent = '[ COPY CODE ]', 2000);
+    });
+  }
+</script>
 
 <script>
   // Navbar glass on scroll
