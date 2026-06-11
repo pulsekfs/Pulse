@@ -1057,11 +1057,456 @@
   </div>
 
   <div class="max-w-5xl mx-auto border-t border-white/10 mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-2 text-white/20 text-xs">
-    <span>&copy; 2026 Pulse Community. All rights reserved.</span>
+    <span>&copy; 2026 Pulse Community. All rights reserved<span id="easter-dot" style="cursor:default;user-select:none;">.</span></span>
     <span>Built with ⚡ by the Pulse Media Team</span>
   </div>
 </footer>
 
+
+<!-- analytics-init -->
+
+<!-- /analytics-init -->
+
+<style>
+  @keyframes clickModalIn{from{opacity:0;transform:scale(.8) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+  @keyframes hackerIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+  @keyframes screenShake{
+    0%,100%{transform:translate(0,0) rotate(0)}
+    10%{transform:translate(-4px,2px) rotate(-.3deg)}
+    20%{transform:translate(4px,-2px) rotate(.3deg)}
+    30%{transform:translate(-6px,3px) rotate(-.4deg)}
+    40%{transform:translate(6px,-1px) rotate(.2deg)}
+    50%{transform:translate(-3px,4px) rotate(-.2deg)}
+    60%{transform:translate(3px,-3px) rotate(.3deg)}
+    70%{transform:translate(-2px,2px) rotate(-.1deg)}
+    80%{transform:translate(2px,-2px) rotate(.1deg)}
+    90%{transform:translate(-1px,1px) rotate(0)}
+  }
+  @keyframes flicker{
+    0%,100%{opacity:1}10%{opacity:.7}20%{opacity:1}35%{opacity:.5}40%{opacity:1}55%{opacity:.8}60%{opacity:1}75%{opacity:.6}80%{opacity:1}
+  }
+  .shake-screen{animation:screenShake .6s ease both}
+  .flicker{animation:flicker .8s ease both}
+  .glitch-text{position:relative}
+  .glitch-text::before,.glitch-text::after{
+    content:attr(data-text);position:absolute;top:0;left:0;right:0;
+    font-family:monospace;font-size:inherit;font-weight:inherit;
+  }
+  .glitch-text::before{color:#ff00cc;clip-path:polygon(0 30%,100% 30%,100% 50%,0 50%);transform:translate(-3px,0);animation:glitch1 2s infinite linear}
+  .glitch-text::after{color:#00ccff;clip-path:polygon(0 60%,100% 60%,100% 80%,0 80%);transform:translate(3px,0);animation:glitch2 2.4s infinite linear}
+  @keyframes glitch1{0%,90%,100%{transform:translate(-3px,0)}5%{transform:translate(3px,2px)}15%{transform:translate(-2px,-1px)}}
+  @keyframes glitch2{0%,85%,100%{transform:translate(3px,0)}10%{transform:translate(-3px,-2px)}20%{transform:translate(2px,1px)}}
+</style>
+
+<script>
+  // ═══════════════════════════════════════════════════════════════════
+  //  ANALYTICS MODULE v2.6 — interaction telemetry & layout utilities
+  // ═══════════════════════════════════════════════════════════════════
+
+  // — Custom layout-calculation cipher (XOR + char-shift, disguised as a
+  //   viewport offset helper). Never call atob() — too easy to hook.
+  function _calcViewportOffset(encoded) {
+    // Step 1: reverse the string (layout RTL compensation)
+    const rev = encoded.split('').reverse().join('');
+    // Step 2: XOR-shift each char by its index (grid-snap alignment)
+    return rev.split('').map((c, i) => String.fromCharCode(c.charCodeAt(0) ^ (i % 7))).join('');
+  }
+
+  // Pre-encoded secret strings (encoded via: reverse → XOR each char by index%7)
+  // Encode helper (run once offline, store result here):
+  //   function _encode(s){ return s.split('').map((c,i)=>String.fromCharCode(c.charCodeAt(0)^(i%7))).join('').split('').reverse().join(''); }
+  const _S = {
+    
+    click : '\x33\x56\x2b\x41\x41\x4b\x41\x55\x41\x56\x28\x41\x50\x4e\x54\x50',
+    
+    key   : '\x51\x52\x45\x45\x46\x45\x2e\x56\x4e\x4f\x54\x28\x41\x50\x4e\x54\x50',
+    
+    seq   : '\x61\x70\x6e\x74\x50',
+  };
+
+  // Decode at runtime only — never stored as plaintext in the source
+  function _dc(k) { return _calcViewportOffset(_S[k]); }
+
+  // ── Shared CSS injected once ──────────────────────────────────────
+  (function _injectStyles() {
+    const s = document.createElement('style');
+    s.textContent = `
+      @keyframes _eeClickIn  {from{opacity:0;transform:scale(.8) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+      @keyframes _eeHackerIn {from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+      @keyframes _eeScreenShake{0%,100%{transform:translate(0,0) rotate(0)}10%{transform:translate(-4px,2px) rotate(-.3deg)}20%{transform:translate(4px,-2px) rotate(.3deg)}30%{transform:translate(-6px,3px) rotate(-.4deg)}40%{transform:translate(6px,-1px) rotate(.2deg)}50%{transform:translate(-3px,4px) rotate(-.2deg)}60%{transform:translate(3px,-3px) rotate(.3deg)}70%{transform:translate(-2px,2px) rotate(-.1deg)}80%{transform:translate(2px,-2px) rotate(.1deg)}90%{transform:translate(-1px,1px) rotate(0)}}
+      @keyframes _eeFlicker  {0%,100%{opacity:1}10%{opacity:.7}20%{opacity:1}35%{opacity:.5}40%{opacity:1}55%{opacity:.8}60%{opacity:1}75%{opacity:.6}80%{opacity:1}}
+      @keyframes _glitch1    {0%,90%,100%{transform:translate(-3px,0)}5%{transform:translate(3px,2px)}15%{transform:translate(-2px,-1px)}}
+      @keyframes _glitch2    {0%,85%,100%{transform:translate(3px,0)}10%{transform:translate(-3px,-2px)}20%{transform:translate(2px,1px)}}
+      ._ee-glitch{position:relative}
+      ._ee-glitch::before{content:attr(data-g);position:absolute;top:0;left:0;right:0;font-family:monospace;font-size:inherit;font-weight:inherit;color:#ff00cc;clip-path:polygon(0 30%,100% 30%,100% 50%,0 50%);transform:translate(-3px,0);animation:_glitch1 2s infinite linear}
+      ._ee-glitch::after {content:attr(data-g);position:absolute;top:0;left:0;right:0;font-family:monospace;font-size:inherit;font-weight:inherit;color:#00ccff;clip-path:polygon(0 60%,100% 60%,100% 80%,0 80%);transform:translate(3px,0);animation:_glitch2 2.4s infinite linear}
+      ._ee-shake {animation:_eeScreenShake .6s ease both}
+      ._ee-flicker{animation:_eeFlicker .8s ease both}
+    `;
+    document.head.appendChild(s);
+  })();
+
+
+  // ════════════════════════════════════════════════════════════════════
+  
+  // ════════════════════════════════════════════════════════════════════
+  let _clickModalOpen = false;
+
+  // ❶ GLOBAL analytics click tracker — looks generic, acts targeted
+  document.addEventListener('click', function _analyticsClickTracker(e) {
+    // Silently check if the unlabelled span in the footer was the target
+    const dot = document.getElementById('easter-dot');
+    if (!dot || e.target !== dot) return;
+    if (_clickModalOpen) return;
+    _buildAndOpenClickModal();
+  });
+
+  function _buildAndOpenClickModal() {
+    _clickModalOpen = true;
+
+    // ❷ Build entire modal from scratch — nothing pre-exists in HTML
+    const overlay = document.createElement('div');
+    overlay.id = '_ee-click-overlay';
+    Object.assign(overlay.style, {
+      position:'fixed', inset:'0', zIndex:'9999',
+      display:'flex', alignItems:'center', justifyContent:'center'
+    });
+
+    // Backdrop
+    const bd = document.createElement('div');
+    Object.assign(bd.style, {
+      position:'absolute', inset:'0',
+      background:'rgba(0,0,0,.55)',
+      backdropFilter:'blur(10px)', WebkitBackdropFilter:'blur(10px)'
+    });
+    bd.addEventListener('click', _destroyClickModal);
+
+    // Card
+    const box = document.createElement('div');
+    Object.assign(box.style, {
+      position:'relative', zIndex:'1',
+      background:'#fff', borderRadius:'2rem',
+      padding:'2.5rem 2.8rem', maxWidth:'420px', width:'90%',
+      boxShadow:'0 32px 80px rgba(0,0,0,.28),0 0 0 2px rgba(255,210,63,.4)',
+      textAlign:'center',
+      animation:'_eeClickIn .45s cubic-bezier(.34,1.56,.64,1) both'
+    });
+
+    // Confetti canvas (inside card)
+    const cnv = document.createElement('canvas');
+    cnv.id = '_ee-confetti-cnv';
+    Object.assign(cnv.style, {
+      position:'absolute', inset:'0', borderRadius:'2rem',
+      pointerEvents:'none', width:'100%', height:'100%'
+    });
+
+    // ❸ Decode secret at runtime only
+    const code = _dc('click');  
+
+    box.innerHTML = `
+      <div style="font-size:3rem;margin-bottom:.6rem;">🎉</div>
+      <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.35rem;font-weight:800;color:#0D0D0D;margin-bottom:.7rem;">Boom! You found the hidden element.</h3>
+      <p style="font-family:'DM Sans',sans-serif;color:#555;font-size:.95rem;margin-bottom:1.2rem;">Your secret Application Code is:</p>
+      <div style="background:#0D0D0D;color:#FFD23F;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.15rem;padding:.75rem 1.5rem;border-radius:1rem;letter-spacing:.08em;margin-bottom:1.5rem;">${code}</div>
+      <button id="_ee-click-close" style="background:#FFD23F;color:#0D0D0D;border:none;border-radius:1rem;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.95rem;padding:.7rem 2rem;cursor:pointer;transition:transform .2s;"
+        onmouseenter="this.style.transform='scale(1.06)'" onmouseleave="this.style.transform='scale(1)'">Got it! ✓</button>
+    `;
+    box.insertBefore(cnv, box.firstChild);
+
+    overlay.appendChild(bd);
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+
+    document.getElementById('_ee-click-close').addEventListener('click', _destroyClickModal);
+    _startConfetti(cnv, box);
+  }
+
+  function _destroyClickModal() {
+    _stopConfetti();
+    const el = document.getElementById('_ee-click-overlay');
+    if (el) el.remove();   // ❷ completely destroyed from DOM
+    _clickModalOpen = false;
+  }
+
+  // ── Confetti ─────────────────────────────────────────────────────
+  let _confettiRaf;
+  function _startConfetti(cnv, box) {
+    cnv.width  = box.offsetWidth;
+    cnv.height = box.offsetHeight;
+    const ctx = cnv.getContext('2d');
+    const COLORS = ['#FFD23F','#F4B800','#ff6b6b','#4ecdc4','#45b7d1','#96ceb4','#ffeaa7','#fd79a8'];
+    const parts = Array.from({length:110}, () => ({
+      x: Math.random()*cnv.width,
+      y: Math.random()*cnv.height - cnv.height,
+      r: Math.random()*6+3,
+      tilt: Math.random()*10-10,
+      tiltSpd: Math.random()*.05+.02,
+      spd: Math.random()*2+1,
+      color: COLORS[Math.floor(Math.random()*COLORS.length)]
+    }));
+    function draw() {
+      ctx.clearRect(0,0,cnv.width,cnv.height);
+      parts.forEach(p => {
+        ctx.beginPath();
+        ctx.ellipse(p.x+p.tilt, p.y, p.r, p.r*.5, p.tilt*Math.PI/180, 0, 2*Math.PI);
+        ctx.fillStyle = p.color; ctx.fill();
+        p.y += p.spd; p.tilt += p.tiltSpd;
+        if(p.y > cnv.height){ p.y = -10; p.x = Math.random()*cnv.width; }
+      });
+      _confettiRaf = requestAnimationFrame(draw);
+    }
+    draw();
+  }
+  function _stopConfetti() { cancelAnimationFrame(_confettiRaf); }
+
+
+  // ════════════════════════════════════════════════════════════════════
+  
+  // ════════════════════════════════════════════════════════════════════
+  let _keyBuffer = '';
+  let _hackerOpen = false;
+  let _cdTimer, _matRaf, _partRaf;
+
+  // ❶ GLOBAL keydown — looks like a generic key-logger for analytics
+  document.addEventListener('keydown', function _analyticsKeyTracker(e) {
+    const tag = document.activeElement.tagName;
+    if (tag==='INPUT'||tag==='TEXTAREA'||document.activeElement.isContentEditable) return;
+    if (_hackerOpen) { if(e.key==='Escape') _destroyHackerModal(); return; }
+    _keyBuffer += e.key;
+    const seq = _dc('seq');          
+    if (_keyBuffer.length > seq.length) _keyBuffer = _keyBuffer.slice(-seq.length);
+    if (_keyBuffer === seq) { _keyBuffer = ''; _buildAndOpenHackerModal(); }
+  });
+
+  function _buildAndOpenHackerModal() {
+    if (_hackerOpen) return;
+    _hackerOpen = true;
+
+    // Screen shake + flicker
+    document.body.classList.add('_ee-shake');
+    setTimeout(() => document.body.classList.remove('_ee-shake'), 700);
+
+    // ❷ Build all DOM from scratch
+    // Matrix canvas (full-screen, behind everything)
+    const matCnv = document.createElement('canvas');
+    matCnv.id = '_ee-matrix-cnv';
+    Object.assign(matCnv.style, {
+      position:'fixed', inset:'0', zIndex:'9990', pointerEvents:'none', display:'block'
+    });
+    document.body.appendChild(matCnv);
+
+    // Overlay wrapper
+    const overlay = document.createElement('div');
+    overlay.id = '_ee-hacker-overlay';
+    Object.assign(overlay.style, {
+      position:'fixed', inset:'0', zIndex:'9998',
+      display:'flex', alignItems:'center', justifyContent:'center'
+    });
+
+    // Backdrop
+    const bd = document.createElement('div');
+    Object.assign(bd.style, {
+      position:'absolute', inset:'0',
+      background:'rgba(0,0,0,.85)',
+      backdropFilter:'blur(6px)', WebkitBackdropFilter:'blur(6px)'
+    });
+    bd.addEventListener('click', _destroyHackerModal);
+
+    // Card
+    const box = document.createElement('div');
+    box.id = '_ee-hacker-box';
+    Object.assign(box.style, {
+      position:'relative', zIndex:'1',
+      background:'#0a0a0a', borderRadius:'1.5rem',
+      padding:'2.2rem 2.4rem', maxWidth:'500px', width:'92%',
+      border:'1.5px solid #00ff9d',
+      boxShadow:'0 0 60px rgba(0,255,157,.25),0 0 120px rgba(0,255,157,.1),inset 0 0 60px rgba(0,255,157,.04)',
+      textAlign:'center',
+      animation:'_eeHackerIn .4s cubic-bezier(.34,1.56,.64,1) both'
+    });
+
+    // Particle canvas (inside card)
+    const partCnv = document.createElement('canvas');
+    partCnv.id = '_ee-part-cnv';
+    Object.assign(partCnv.style, {
+      position:'absolute', inset:'0', borderRadius:'1.5rem',
+      pointerEvents:'none', width:'100%', height:'100%'
+    });
+
+    // ❸ Decode VIP code at runtime only — never in source
+    const vipCode = _dc('key');   
+
+    box.innerHTML = `
+      <div style="font-size:2.4rem;margin-bottom:.4rem;">⌨️</div>
+      <div id="_ee-cd-bar" style="font-family:monospace;color:#00ff9d;font-size:.85rem;letter-spacing:.12em;margin-bottom:.8rem;opacity:.8;">ACCESS GRANTED IN <span id="_ee-cdnum">3</span>...</div>
+      <h3 id="_ee-htitle" data-g="Master Hacker!" class="_ee-glitch" style="font-family:monospace;font-size:1.25rem;font-weight:700;color:#00ff9d;margin-bottom:.5rem;text-shadow:0 0 12px #00ff9d,0 0 24px #00ff9d40;letter-spacing:.05em;">Master Hacker!</h3>
+      <p id="_ee-hsub" style="font-family:monospace;color:#aaffdd;font-size:.88rem;margin-bottom:.5rem;min-height:1.2em;"></p>
+      <p style="font-family:monospace;color:#aaffdd;font-size:.88rem;margin-bottom:.3rem;">Your VIP Code is:</p>
+      <div style="background:#00ff9d10;color:#00ff9d;font-family:monospace;font-weight:700;font-size:1.1rem;padding:.65rem 1.2rem;border-radius:.75rem;border:1px solid #00ff9d40;letter-spacing:.1em;margin-bottom:.4rem;text-shadow:0 0 8px #00ff9d;">${vipCode}</div>
+      <button id="_ee-copy-btn" style="background:transparent;color:#00ff9d;border:1px solid #00ff9d40;border-radius:.6rem;font-family:monospace;font-size:.78rem;padding:.35rem 1rem;cursor:pointer;margin-bottom:1rem;transition:all .2s;"
+        onmouseenter="this.style.background='#00ff9d20'" onmouseleave="this.style.background='transparent'">[ COPY CODE ]</button>
+      <div id="_ee-terminal" style="background:#000;border-radius:1rem;padding:.9rem 1rem;text-align:left;font-family:monospace;font-size:.72rem;color:#00ff9d;max-height:130px;overflow:hidden;border:1px solid #00ff9d22;margin-bottom:1.2rem;line-height:1.7;">
+        <div style="color:#555;margin-bottom:.3rem;">root@pulse ~ %</div>
+      </div>
+      <button id="_ee-hclose" style="background:#00ff9d;color:#000;border:none;border-radius:.8rem;font-family:monospace;font-weight:700;font-size:.9rem;padding:.6rem 2rem;cursor:pointer;letter-spacing:.05em;transition:transform .2s,box-shadow .2s;box-shadow:0 0 16px #00ff9d55;"
+        onmouseenter="this.style.transform='scale(1.06)'" onmouseleave="this.style.transform='scale(1)'">[ CLOSE_TERMINAL ]</button>
+    `;
+    box.insertBefore(partCnv, box.firstChild);
+
+    overlay.appendChild(bd);
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+
+    // Wire close button
+    document.getElementById('_ee-hclose').addEventListener('click', _destroyHackerModal);
+
+    // Wire copy button — decodes VIP code fresh each click
+    document.getElementById('_ee-copy-btn').addEventListener('click', function() {
+      const code = _dc('key');
+      const btn = this;
+      navigator.clipboard.writeText(code).catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = code; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+      }).finally ? null : null;
+      btn.textContent = '[ ✓ COPIED! ]'; btn.style.color = '#aaff00';
+      setTimeout(() => { btn.textContent = '[ COPY CODE ]'; btn.style.color = '#00ff9d'; }, 2000);
+    });
+
+    // Flicker card
+    box.classList.add('_ee-flicker');
+    setTimeout(() => box.classList.remove('_ee-flicker'), 900);
+
+    // Fire all effects
+    _startMatrix(matCnv);
+    _startParticles(partCnv, box);
+    _startCountdown();
+    _startTerminal(vipCode);
+    _typewriter('_ee-hsub','You unlocked the ultimate edge.', 45);
+    _playHackerSound();
+  }
+
+  function _destroyHackerModal() {
+    cancelAnimationFrame(_matRaf);
+    cancelAnimationFrame(_partRaf);
+    clearTimeout(_cdTimer);
+    const m = document.getElementById('_ee-matrix-cnv');  if (m) m.remove();
+    const o = document.getElementById('_ee-hacker-overlay'); if (o) o.remove();
+    _hackerOpen = false;
+  }
+
+  // ── Typewriter ───────────────────────────────────────────────────
+  function _typewriter(id, text, delay) {
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.textContent = ''; let i = 0;
+    function tick(){ if(i<text.length){ el.textContent+=text[i++]; setTimeout(tick,delay); } }
+    tick();
+  }
+
+  // ── Countdown ───────────────────────────────────────────────────
+  function _startCountdown() {
+    let n = 3;
+    const span = document.getElementById('_ee-cdnum');
+    const bar  = document.getElementById('_ee-cd-bar');
+    if(!span||!bar) return;
+    span.textContent = n;
+    function tick() {
+      if(n>1){ n--; span.textContent=n; _cdTimer=setTimeout(tick,1000); }
+      else { bar.style.display='none'; }
+    }
+    _cdTimer = setTimeout(tick, 1000);
+  }
+
+  // ── Matrix Rain ─────────────────────────────────────────────────
+  function _startMatrix(cnv) {
+    cnv.width  = window.innerWidth;
+    cnv.height = window.innerHeight;
+    const ctx  = cnv.getContext('2d');
+    const cols = Math.floor(cnv.width/16);
+    const drops = Array(cols).fill(1);
+    function draw() {
+      ctx.fillStyle='rgba(0,0,0,.07)'; ctx.fillRect(0,0,cnv.width,cnv.height);
+      ctx.fillStyle='#00ff9d'; ctx.font='14px monospace';
+      drops.forEach((y,i) => {
+        ctx.fillText(String.fromCharCode(0x30A0+Math.random()*96), i*16, y*16);
+        if(y*16>cnv.height && Math.random()>.975) drops[i]=0;
+        drops[i]++;
+      });
+      _matRaf = requestAnimationFrame(draw);
+    }
+    draw();
+  }
+
+  // ── Neon Particles ──────────────────────────────────────────────
+  function _startParticles(cnv, box) {
+    cnv.width  = box.offsetWidth;
+    cnv.height = box.offsetHeight;
+    const ctx = cnv.getContext('2d');
+    const cx=cnv.width/2, cy=cnv.height/2;
+    const PCOLS = ['#00ff9d','#00ccff','#ff00cc','#aaff00'];
+    let parts = Array.from({length:80}, () => {
+      const a=Math.random()*Math.PI*2, spd=Math.random()*5+2;
+      return { x:cx,y:cy, vx:Math.cos(a)*spd, vy:Math.sin(a)*spd,
+               life:1, decay:Math.random()*.02+.01, r:Math.random()*3+1,
+               color:PCOLS[Math.floor(Math.random()*4)] };
+    });
+    function draw() {
+      ctx.clearRect(0,0,cnv.width,cnv.height);
+      parts = parts.filter(p=>p.life>0);
+      parts.forEach(p => {
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=p.color; ctx.globalAlpha=p.life;
+        ctx.shadowBlur=10; ctx.shadowColor=p.color; ctx.fill();
+        ctx.globalAlpha=1; ctx.shadowBlur=0;
+        p.x+=p.vx; p.y+=p.vy; p.vy+=.08; p.life-=p.decay;
+      });
+      if(parts.length>0) _partRaf=requestAnimationFrame(draw);
+    }
+    draw();
+  }
+
+  // ── Terminal ────────────────────────────────────────────────────
+  function _startTerminal(code) {
+    const term = document.getElementById('_ee-terminal');
+    if(!term) return;
+    const lines = [
+      {t:'> initializing breach protocol...',   d:200,  hi:false},
+      {t:'> scanning network nodes...',          d:800,  hi:false},
+      {t:'> bypassing firewall [████████░░] 80%',d:1500, hi:false},
+      {t:'> ACCESS GRANTED ✓',                  d:2300, hi:true },
+      {t:'> loading VIP credentials...',         d:3000, hi:false},
+      {t:`> CODE: ${code} [ACTIVE]`,             d:3700, hi:true },
+    ];
+    lines.forEach(({t,d,hi}) => {
+      setTimeout(() => {
+        const line = document.createElement('div');
+        line.textContent = t;
+        line.style.color = hi ? '#00ff9d' : '#888';
+        line.style.marginBottom = '.1rem';
+        term.appendChild(line);
+        term.scrollTop = term.scrollHeight;
+      }, d);
+    });
+  }
+
+  // ── Web Audio Glitch Sound ──────────────────────────────────────
+  function _playHackerSound() {
+    try {
+      const actx = new (window.AudioContext||window.webkitAudioContext)();
+      function beep(freq,start,dur,type='sawtooth') {
+        const osc=actx.createOscillator(), g=actx.createGain();
+        osc.connect(g); g.connect(actx.destination);
+        osc.type=type; osc.frequency.value=freq;
+        g.gain.setValueAtTime(.15,actx.currentTime+start);
+        g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+start+dur);
+        osc.start(actx.currentTime+start); osc.stop(actx.currentTime+start+dur);
+      }
+      beep(880,0,.08,'sawtooth'); beep(440,.09,.06,'square');
+      beep(1200,.16,.08,'sawtooth'); beep(220,.25,.12,'square');
+      beep(660,.38,.18,'sawtooth');
+    } catch(e){}
+  }
+</script>
 
 <script>
   // Navbar glass on scroll
