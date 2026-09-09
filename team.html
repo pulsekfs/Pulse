@@ -13,232 +13,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            yellow: { pulse:"#FFD23F", deep:"#F4B800", soft:"#FFF8DC" },
-            ink: "#0D0D0D"
-          },
-          fontFamily: {
-            display: ["Plus Jakarta Sans","sans-serif"],
-            body:    ["DM Sans","sans-serif"]
-          },
-          boxShadow: {
-            glow:   "0 0 28px 6px rgba(255,210,63,0.45)",
-            glowsm: "0 0 14px 3px rgba(255,210,63,0.30)"
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    *,*::before,*::after{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{font-family:"DM Sans",sans-serif;background:#fff;color:#0D0D0D;overflow-x:hidden}
-    h1,h2,h3,h4{font-family:"Plus Jakarta Sans",sans-serif}
-
-    /* ── Navbar ── */
-    #navbar{transition:background .3s,box-shadow .3s}
-    #navbar.scrolled{background:rgba(255,255,255,.97)!important;backdrop-filter:blur(16px);box-shadow:0 2px 24px rgba(0,0,0,.08)}
-
-    /* ── Mobile menu ── */
-    #mobile-menu{max-height:0;overflow:hidden;transition:max-height .4s ease}
-    #mobile-menu.open{max-height:400px}
-
-    /* ── Scroll reveal ── */
-    .reveal{opacity:0;transform:translateY(32px);transition:opacity .65s ease,transform .65s ease}
-    .reveal.visible{opacity:1;transform:translateY(0)}
-
-    /* ── Social icons ── */
-    .soc{transition:color .2s,transform .25s,filter .25s}
-    .soc:hover{color:#FFD23F;transform:scale(1.28);filter:drop-shadow(0 0 7px rgba(255,210,63,.75))}
-
-    /* ── CTA pulse ── */
-    @keyframes ctaPulse{
-      0%,100%{box-shadow:0 0 0 0 rgba(255,210,63,.55)}
-      60%{box-shadow:0 0 0 20px rgba(255,210,63,0)}
-    }
-    .cta-pulse{animation:ctaPulse 2.2s ease-in-out infinite}
-
-    /* ── Dot pulse ── */
-    @keyframes dotPulse{
-      0%,100%{box-shadow:0 0 0 0 rgba(255,210,63,.7);transform:scale(1)}
-      50%{box-shadow:0 0 0 9px rgba(255,210,63,0);transform:scale(1.18)}
-    }
-    .dot-pulse{animation:dotPulse 1.8s ease-in-out infinite}
-
-    /* ══ MEMBER CARD ══ */
-    .member-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 1rem;
-      cursor: pointer;
-      aspect-ratio: 3/4;
-      background: #111;
-      transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s;
-    }
-    .member-card:hover {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.18);
-    }
-    .member-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.45s ease;
-    }
-    .member-card:hover img {
-      transform: scale(1.06);
-    }
-    /* Overlay — hidden by default, revealed on hover */
-    .member-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.55) 45%, transparent 75%);
-      opacity: 0;
-      transition: opacity 0.35s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 1.1rem;
-      pointer-events: none;
-    }
-    .member-card:hover .member-overlay {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    /* Verified badge overlay */
-    .verified-badge {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(34,197,94,0.95);
-      color: #fff;
-      font-family: "Plus Jakarta Sans", sans-serif;
-      font-weight: 700;
-      font-size: 0.78rem;
-      padding: 0.45rem 0.9rem;
-      border-radius: 999px;
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity 0.3s;
-      pointer-events: none;
-      z-index: 20;
-      box-shadow: 0 4px 18px rgba(34,197,94,0.5);
-    }
-    .member-card.verified .verified-badge {
-      opacity: 1;
-    }
-    .member-card.verified .member-overlay {
-      opacity: 1;
-    }
-
-    /* ── Section divider ── */
-    .section-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: "Plus Jakarta Sans", sans-serif;
-      font-weight: 800;
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #0D0D0D;
-      background: #FFD23F;
-      padding: 0.35rem 0.9rem;
-      border-radius: 999px;
-    }
-
-    /* ── Committee header ── */
-    .committee-header {
-      position: relative;
-      padding-left: 1rem;
-    }
-    .committee-header::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 4px;
-      height: 80%;
-      background: #FFD23F;
-      border-radius: 2px;
-    }
-
-    /* ── Toast ── */
-    #toast {
-      position: fixed;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%) translateY(6rem);
-      background: #ef4444;
-      color: #fff;
-      font-family: "Plus Jakarta Sans", sans-serif;
-      font-weight: 600;
-      font-size: 0.85rem;
-      padding: 0.85rem 1.6rem;
-      border-radius: 0.75rem;
-      box-shadow: 0 8px 30px rgba(239,68,68,0.4);
-      transition: transform 0.35s cubic-bezier(.34,1.56,.64,1), opacity 0.35s;
-      opacity: 0;
-      z-index: 9999;
-      white-space: nowrap;
-    }
-    #toast.show {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-    }
-
-    /* ── Search box glow ── */
-    #verify-input:focus {
-      outline: none;
-      border-color: #FFD23F;
-      box-shadow: 0 0 0 3px rgba(255,210,63,0.25);
-    }
-
-    /* ── Hero section pattern ── */
-    .team-hero-bg {
-      background: #0D0D0D;
-      position: relative;
-      overflow: hidden;
-    }
-    .team-hero-bg::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(circle at 20% 50%, rgba(255,210,63,0.12) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 30%, rgba(255,210,63,0.08) 0%, transparent 40%);
-      pointer-events: none;
-    }
-
-    /* ── Mobile fixes ── */
-    @media (max-width: 640px) {
-      .logo-navbar, nav img { max-height: 2.2rem !important; }
-    }
-    .no-scroll::-webkit-scrollbar{display:none}
-    .no-scroll{-ms-overflow-style:none;scrollbar-width:none}
-
-    /* ── Shimmer ── */
-    @keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
-    .shimmer{
-      background:linear-gradient(90deg,#FFD23F 25%,#fff 50%,#FFD23F 75%);
-      background-size:400px 100%;
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-      animation:shimmer 3.5s linear infinite
-    }
-
-    /* ── Verified ring ── */
-    .member-card.verified {
-      ring: 4px;
-      ring-color: rgb(34 197 94);
-      box-shadow: 0 0 0 4px rgb(34 197 94), 0 0 25px rgba(34,197,94,0.6) !important;
-    }
-  </style>
+  <script src="assets/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="assets/css/main.css"/>
 </head>
 <body>
 
@@ -255,6 +31,7 @@
       <a href="index.html#events" class="font-body text-sm font-medium text-slate-600 hover:text-yellow-deep transition-colors">Events</a>
       <a href="index.html#committees" class="font-body text-sm font-medium text-slate-600 hover:text-yellow-deep transition-colors">Committees</a>
       <a href="team.html" class="font-body text-sm font-medium text-yellow-deep border-b-2 border-yellow-pulse transition-colors">Our Team</a>
+      <a href="news.html" class="font-body text-sm font-medium text-slate-600 hover:text-yellow-deep transition-colors">News</a>
       <a href="https://forms.gle/yxmnXCHtAcTAzY9LA" target="_blank" rel="noopener"
          class="bg-yellow-pulse text-ink text-sm font-display font-bold px-5 py-2.5 rounded-full shadow-glowsm hover:shadow-glow hover:scale-105 transition-all duration-200">
         Join Us ⚡
@@ -270,6 +47,7 @@
       <a href="index.html#events" class="py-3 border-b border-gray-100 text-sm text-slate-700 hover:text-yellow-deep transition-colors mobile-link">Events</a>
       <a href="index.html#committees" class="py-3 border-b border-gray-100 text-sm text-slate-700 hover:text-yellow-deep transition-colors mobile-link">Committees</a>
       <a href="team.html" class="py-3 border-b border-gray-100 text-sm font-semibold text-yellow-deep transition-colors mobile-link">Our Team</a>
+      <a href="news.html" class="py-3 border-b border-gray-100 text-sm text-slate-700 hover:text-yellow-deep transition-colors mobile-link">News</a>
       <a href="https://forms.gle/yxmnXCHtAcTAzY9LA" target="_blank" rel="noopener"
          class="mt-4 mb-2 text-center bg-yellow-pulse text-ink font-display font-bold px-5 py-3 rounded-full mobile-link">
         Join Us ⚡
@@ -1038,6 +816,21 @@
 
 
 <!-- ═══════════════════════════════
+     NEWLY ACCEPTED MEMBERS (dynamic — filled from /admin)
+═══════════════════════════════ -->
+<section class="bg-white py-16 px-6 hidden" id="section-new-members">
+  <div class="max-w-6xl mx-auto">
+    <div class="reveal mb-10 flex flex-col items-center text-center gap-3">
+      <span class="section-label"><i class="fa-solid fa-sparkles"></i> Just Joined</span>
+      <h2 class="font-display font-extrabold text-ink" style="font-size:clamp(1.5rem,3vw,2.2rem);">Newly Accepted Members</h2>
+      <p class="font-body text-slate-500 text-sm max-w-sm leading-relaxed">The newest additions to the Pulse family — welcome aboard!</p>
+    </div>
+    <div id="new-members-grid" class="flex flex-wrap justify-center gap-6 reveal"></div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════
      APPLY CTA — Season 2026/2027
 ═══════════════════════════════ -->
 <section class="bg-yellow-pulse py-20 px-6 relative overflow-hidden">
@@ -1080,6 +873,7 @@
       <a href="index.html#events" class="text-sm text-white/65 hover:text-yellow-pulse transition-colors">Events</a>
       <a href="index.html#committees" class="text-sm text-white/65 hover:text-yellow-pulse transition-colors">Committees</a>
       <a href="team.html" class="text-sm text-white/65 hover:text-yellow-pulse transition-colors">Our Team</a>
+      <a href="news.html" class="text-sm text-white/65 hover:text-yellow-pulse transition-colors">News</a>
       <a href="https://forms.gle/yxmnXCHtAcTAzY9LA" target="_blank" rel="noopener"
          class="text-sm text-white/65 hover:text-yellow-pulse transition-colors">Apply Now</a>
     </div>
@@ -1110,171 +904,7 @@
 </div>
 
 
-<script>
-  // ══════════════════════════════════════════
-  //  NAVBAR
-  // ══════════════════════════════════════════
-  const nav = document.getElementById("navbar");
-  window.addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 60));
-
-  const hbg = document.getElementById("hamburger");
-  const mob = document.getElementById("mobile-menu");
-  hbg.addEventListener("click", () => {
-    mob.classList.toggle("open");
-    const ic = hbg.querySelector("i");
-    ic.classList.toggle("fa-bars"); ic.classList.toggle("fa-xmark");
-  });
-  document.querySelectorAll(".mobile-link").forEach(l => l.addEventListener("click", () => {
-    mob.classList.remove("open");
-    const ic = hbg.querySelector("i");
-    ic.classList.add("fa-bars"); ic.classList.remove("fa-xmark");
-  }));
-
-  // ══════════════════════════════════════════
-  //  SCROLL REVEAL
-  // ══════════════════════════════════════════
-  const obs = new IntersectionObserver(entries => entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add("visible"); obs.unobserve(e.target); }
-  }), { threshold: 0.08 });
-  document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
-
-  // ══════════════════════════════════════════
-  //  VERIFICATION ID → CARD ID MAPPING
-  // ══════════════════════════════════════════
-  const verificationMap = {
-    // High Board
-    "PULSE26-OMAR-ELBEDAWY":        "card-omar",
-    "PULSE26-RHMAN-AHMED":         "card-abdelrhman",
-    // Committee 1 — COI & OC
-    "PULSE26-KARIM-MOHAMMED":       "card-abdelkarim",
-    "PULSE26-BASSANT-HESHAM":       "card-bassant",
-    "PULSE26-YARA-EBRAHIM":         "card-yara",
-    "PULSE26-MOHAMMED-ELDALY":      "card-eldaly",
-    "PULSE26-YOUSEF-ELLAWATY":      "card-yousef-ellawaty",
-    "PULSE26-YASSIN-HOSSAM":        "card-yassin",
-    "PULSE26-SHAIMAA-MOHAMMED":     "card-shaimaa",
-    "PULSE26-GLORIA-MICHAEL":       "card-gloria",
-    "PULSE26-HUDA-IBRAHIM":         "card-huda",
-    "PULSE26-OMAR-MOWAFI":          "card-omar-mowafi",
-    "PULSE26-ALI-ELSAQA":           "card-ali-elsaqa",
-    "PULSE26-ABDELHAMEED-EMAD":     "card-abdelhameed",
-    "PULSE26-OSAMA-FARAHAT":        "card-osama",
-    "PULSE26-ALSHAIMAA-ENAR":       "card-alshaimaa",
-    "PULSE26-NOUR-ELSHEIKH":        "card-nour",
-    "PULSE26-ALI-ABDOLMONIEM":      "card-ali-abdolmoniem",
-    // Committee 2 — Marketing & Media
-    "PULSE26-AHMED-REDA":           "card-ahmed-reda",
-    "PULSE26-SAFY-HESHAM":          "card-safy",
-    "PULSE26-DAREEN-MOHAMMED":      "card-dareen",
-    "PULSE26-AHMED-MAHMOUD":        "card-ahmed-mahmoud",
-    "PULSE26-YOUSEF-RAGAB":         "card-yousef-ragab",
-    "PULSE26-SARA-WESSAM":          "card-sara",
-    // Committee 3 — Scholarships & Admissions
-    "PULSE26-MOHAMMED-OSAMA":       "card-mohammed-osama",
-    "PULSE26-MARK-HANY":            "card-mark",
-    "PULSE26-ANAS-EBRAHIM":         "card-anas",
-    "PULSE26-HANEEN-ABDELRAZIK":    "card-haneen",
-  };
-
-  // Name map for success message
-  const nameMap = {
-    "card-omar":            "Omar Elbedawy — President",
-    "card-abdelrhman":     "Abdelrhman Metwally — Vice President",
-    "card-abdelkarim":      "AbdelKarim Mohammed",
-    "card-bassant":         "Bassant Hesham",
-    "card-yara":            "Yara Ebrahim",
-    "card-eldaly":          "Mohammed Eldaly",
-    "card-yousef-ellawaty": "Yousef Ellawaty",
-    "card-yassin":          "Yassin Hossam",
-    "card-shaimaa":         "Shaimaa Mohammed",
-    "card-gloria":          "Gloria Michael",
-    "card-huda":            "Huda Ibrahim",
-    "card-omar-mowafi":     "Omar Mowafi",
-    "card-ali-elsaqa":      "Ali ElSaqa",
-    "card-abdelhameed":     "Abdelhameed Emad",
-    "card-osama":           "Osama Farahat",
-    "card-alshaimaa":       "AlShaimaa Enar",
-    "card-nour":            "Nour Elsheikh",
-    "card-ali-abdolmoniem": "Ali Abdolmoniem",
-    "card-ahmed-reda":      "Ahmed Reda",
-    "card-safy":            "Safy Hesham",
-    "card-dareen":          "Dareen Mohammed",
-    "card-ahmed-mahmoud":   "Ahmed Mahmoud",
-    "card-yousef-ragab":    "Yousef Ragab",
-    "card-sara":            "Sara Wessam",
-    "card-mohammed-osama":  "Mohammed Osama",
-    "card-mark":            "Mark Hany",
-    "card-anas":            "Anas Ebrahim",
-    "card-haneen":          "Haneen Abdelrazik",
-  };
-
-  let activeCard = null;
-  let clearTimer = null;
-
-  function clearVerification() {
-    if (activeCard) {
-      activeCard.classList.remove("verified");
-      activeCard.style.boxShadow = "";
-      activeCard = null;
-    }
-  }
-
-  function runVerification() {
-    const input = document.getElementById("verify-input");
-    const errorEl = document.getElementById("verify-error");
-    const successEl = document.getElementById("verify-success");
-    const successText = document.getElementById("verify-success-text");
-    const rawId = input.value.trim().toUpperCase();
-
-    // Reset UI
-    errorEl.classList.add("hidden");
-    successEl.classList.add("hidden");
-    clearVerification();
-    if (clearTimer) clearTimeout(clearTimer);
-
-    if (!rawId) return;
-
-    const cardId = verificationMap[rawId];
-
-    if (!cardId) {
-      // Invalid ID
-      errorEl.classList.remove("hidden");
-      // Also show toast
-      const toast = document.getElementById("toast");
-      toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 3500);
-      return;
-    }
-
-    // Valid — scroll and highlight
-    const card = document.getElementById(cardId);
-    if (!card) return;
-
-    const memberName = nameMap[cardId] || "Member";
-    successText.textContent = `✅ Certificate verified! Scrolling to: ${memberName}`;
-    successEl.classList.remove("hidden");
-
-    // Smooth scroll
-    const offset = 100;
-    const top = card.getBoundingClientRect().top + window.scrollY - offset;
-    window.scrollTo({ top, behavior: "smooth" });
-
-    // Apply green glow + verified badge after short delay (let scroll settle)
-    setTimeout(() => {
-      card.classList.add("verified");
-      activeCard = card;
-    }, 400);
-
-    // Auto-remove after 4 seconds
-    clearTimer = setTimeout(() => {
-      clearVerification();
-    }, 4400);
-  }
-
-  document.getElementById("verify-btn").addEventListener("click", runVerification);
-  document.getElementById("verify-input").addEventListener("keydown", e => {
-    if (e.key === "Enter") runVerification();
-  });
-</script>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/team.js"></script>
 </body>
 </html>
