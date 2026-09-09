@@ -22,7 +22,7 @@ const ADMIN_PASSWORD = "ImTheAdmin";
 // Your repo details — filled in once so the admin only has to paste a token.
 // Edit these three to match your actual GitHub repo.
 const REPO_OWNER = "pulsekfs";
-const REPO_NAME = "pulsekfs.github.io";
+const REPO_NAME = "Pulse";
 const REPO_BRANCH = "main";
 
 const LS_KEY = "pulse_admin_gh_config";
