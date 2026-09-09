@@ -1,0 +1,447 @@
+/* ════════════════════════════════════════════════════════════
+   PULSE — SHARED SITE STYLES
+   Consolidated from index.html + team.html (Sep 2026 site split).
+   Every original rule preserved; only exact duplicate blocks
+   that existed in the old inline <style> tags were removed.
+   ════════════════════════════════════════════════════════════ */
+
+*,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:"DM Sans",sans-serif;background:#fff;color:#0D0D0D;overflow-x:hidden}
+    h1,h2,h3,h4{font-family:"Plus Jakarta Sans",sans-serif}
+
+/* ── Navbar ── */
+    #navbar{transition:background .3s,box-shadow .3s}
+    #navbar.scrolled{background:rgba(255,255,255,.97)!important;backdrop-filter:blur(16px);box-shadow:0 2px 24px rgba(0,0,0,.08)}
+
+/* ── Mobile menu ── */
+    #mobile-menu{max-height:0;overflow:hidden;transition:max-height .4s ease}
+    #mobile-menu.open{max-height:400px}
+
+/* ── Animations ── */
+    @keyframes dotPulse{
+      0%,100%{box-shadow:0 0 0 0 rgba(255,210,63,.7);transform:scale(1)}
+      50%{box-shadow:0 0 0 9px rgba(255,210,63,0);transform:scale(1.18)}
+    }
+    .dot-pulse{animation:dotPulse 1.8s ease-in-out infinite}
+
+    @keyframes ctaPulse{
+      0%,100%{box-shadow:0 0 0 0 rgba(255,210,63,.55)}
+      60%{box-shadow:0 0 0 20px rgba(255,210,63,0)}
+    }
+    .cta-pulse{animation:ctaPulse 2.2s ease-in-out infinite}
+
+/* ── Scroll reveal ── */
+    .reveal{opacity:0;transform:translateY(32px);transition:opacity .65s ease,transform .65s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── Logo: remove white bg via multiply ── */
+    .logo-navbar{background:none}
+    .logo-footer{filter:brightness(1.4)}
+
+/* ── Committee cards ── */
+    .c-card{transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s}
+    .c-card:hover{transform:perspective(900px) rotateY(-4deg) rotateX(3deg) translateY(-10px);box-shadow:8px 22px 60px rgba(255,210,63,.22),0 4px 18px rgba(0,0,0,.07)}
+
+/* ── What-we-do blocks ── */
+    .do-block{transition:transform .3s,box-shadow .3s}
+    .do-block:hover{transform:translateY(-7px);box-shadow:0 10px 40px rgba(255,210,63,.18)}
+
+/* ── Gallery ── */
+    .gallery-card{border-radius:1.25rem;overflow:hidden;transition:transform .3s,box-shadow .3s}
+    .gallery-card:hover{transform:scale(1.03);box-shadow:0 14px 42px rgba(0,0,0,.14)}
+    .gallery-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+    .gallery-card:hover img{transform:scale(1.07)}
+
+/* ── Social icons ── */
+    .soc{transition:color .2s,transform .25s,filter .25s}
+    .soc:hover{color:#FFD23F;transform:scale(1.28);filter:drop-shadow(0 0 7px rgba(255,210,63,.75))}
+
+/* ── Stats shimmer ── */
+    @keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+    .shimmer{
+      background:linear-gradient(90deg,#0D0D0D 25%,#FFD23F 50%,#0D0D0D 75%);
+      background-size:400px 100%;
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      animation:shimmer 3.5s linear infinite
+    }
+
+/* ── Gallery Carousel ── */
+    .gallery-carousel{position:relative;width:100%;max-width:900px;margin:0 auto;user-select:none}
+    .gallery-track{position:relative;overflow:hidden;border-radius:1.5rem;background:#111;box-shadow:0 20px 60px rgba(0,0,0,.18)}
+    .gallery-slides-inner{display:flex;transition:transform .45s cubic-bezier(.4,0,.2,1)}
+    .gallery-slide{min-width:100%;display:flex;flex-direction:column}
+    .gallery-img-wrap{width:100%;aspect-ratio:16/9;background:#111;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:1.5rem 1.5rem 0 0}
+    .gallery-img-wrap img{width:100%;height:100%;object-fit:contain;display:block}
+    .gallery-caption{font-family:"DM Sans",sans-serif;font-size:.82rem;color:rgba(255,255,255,.5);padding:.65rem 1.2rem;text-align:center;background:#111;border-radius:0 0 1.5rem 1.5rem}
+    .gallery-arrow{position:absolute;top:42%;transform:translateY(-50%);background:rgba(255,210,63,.92);color:#0D0D0D;border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:background .2s,transform .2s,box-shadow .2s;z-index:10;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+    .gallery-arrow:hover{background:#FFD23F;transform:translateY(-50%) scale(1.12);box-shadow:0 0 18px rgba(255,210,63,.55)}
+    .gallery-prev{left:-22px}.gallery-next{right:-22px}
+    .gallery-dots{display:flex;justify-content:center;gap:.55rem;margin-top:1.1rem}
+    .gallery-dot{width:9px;height:9px;border-radius:50%;border:none;background:rgba(13,13,13,.18);cursor:pointer;transition:background .25s,transform .25s}
+    .gallery-dot.active{background:#F4B800;transform:scale(1.3)}
+
+/* ── Mobile Responsive Fixes ── */
+    @media (max-width: 640px) {
+      /* Navbar logo size */
+      .logo-navbar, nav img { max-height: 2.2rem !important; }
+
+      /* Hero section */
+      #hero { background-position: center 30% !important; }
+
+      /* Committee cards - prevent overflow */
+      .c-card { border-radius: 1.25rem !important; }
+      .c-card .grid { gap: 0.15rem !important; }
+
+      /* Gallery arrows */
+      .gallery-prev { left: -12px !important; }
+      .gallery-next { right: -12px !important; }
+      .gallery-arrow { width: 36px !important; height: 36px !important; }
+
+      /* Stats bar */
+      .stats-bar-item { min-width: 80px; }
+
+      /* Certificate preview */
+      .cert-preview { max-height: 9rem !important; }
+
+      /* What we do + committees grid gap */
+      section .grid { gap: 1rem !important; }
+
+      /* CTA section padding */
+      #apply { padding-left: 1rem !important; padding-right: 1rem !important; }
+    }
+
+    /* scrollbar hide */
+    .no-scroll::-webkit-scrollbar{display:none}
+    .no-scroll{-ms-overflow-style:none;scrollbar-width:none}
+
+/* ══ WHEEL GALLERY ══ */
+    .wheel-section {
+      position: relative;
+      height: 900px; /* scroll space */
+      overflow: hidden;
+    }
+    .wheel-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .wheel-wrapper {
+      --card-w: clamp(160px, 22vw, 280px);
+      --card-h: calc(var(--card-w) * 1.45);
+      --n: 7;
+      --radius: calc(var(--card-w) * var(--n) / (2 * 3.1416));
+      position: relative;
+      width: calc(var(--radius) * 2);
+      height: calc(var(--radius) * 2);
+    }
+    .wheel-card {
+      position: absolute;
+      width: var(--card-w);
+      height: var(--card-h);
+      border-radius: 16px;
+      overflow: hidden;
+      left: 50%;
+      top: 50%;
+      margin-left: calc(var(--card-w) / -2);
+      margin-top: calc(var(--card-h) / -2);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+      transition: filter 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
+    }
+    .wheel-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #111;
+      display: block;
+    }
+    .wheel-caption {
+      position: absolute;
+      bottom: -2.2rem;
+      left: 0; right: 0;
+      text-align: center;
+      font-family: "DM Sans", sans-serif;
+      font-size: .78rem;
+      color: rgba(255,255,255,0.7);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .wheel-nav {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: .6rem;
+      z-index: 20;
+    }
+    .wheel-dot {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: background .25s, transform .25s;
+    }
+    .wheel-dot.active { background: #FFD23F; transform: scale(1.3); }
+    .wheel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,210,63,0.92);
+      color: #0D0D0D;
+      border: none;
+      border-radius: 50%;
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,.18);
+      transition: background .2s, transform .2s;
+      z-index: 20;
+    }
+    .wheel-arrow:hover { background: #FFD23F; transform: translateY(-50%) scale(1.12); }
+    .wheel-prev { left: 1rem; }
+    .wheel-next { right: 1rem; }
+    .wheel-scroll-hint {
+      position: absolute;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.4);
+      font-size: .72rem;
+      font-family: "DM Sans",sans-serif;
+      letter-spacing: .05em;
+      animation: hintBounce 1.5s ease-in-out infinite;
+    }
+    @keyframes hintBounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(5px)} }
+
+/* ── Mobile Responsive Fixes ── */
+    @media (max-width: 640px) {
+      /* Navbar logo size */
+      .logo-navbar, nav img { max-height: 2.2rem !important; }
+
+      /* Hero section */
+      #hero { background-position: center 30% !important; }
+
+      /* Committee cards - prevent overflow */
+      .c-card { border-radius: 1.25rem !important; }
+      .c-card .grid { gap: 0.15rem !important; }
+
+      /* Gallery arrows */
+      .gallery-prev { left: -12px !important; }
+      .gallery-next { right: -12px !important; }
+      .gallery-arrow { width: 36px !important; height: 36px !important; }
+
+      /* Stats bar */
+      .stats-bar-item { min-width: 80px; }
+
+      /* Certificate preview */
+      .cert-preview { max-height: 9rem !important; }
+
+      /* What we do + committees grid gap */
+      section .grid { gap: 1rem !important; }
+
+      /* CTA section padding */
+      #apply { padding-left: 1rem !important; padding-right: 1rem !important; }
+    }
+
+    /* scrollbar hide */
+    .no-scroll::-webkit-scrollbar{display:none}
+    .no-scroll{-ms-overflow-style:none;scrollbar-width:none}
+
+    /* Slide fade animation */
+    @keyframes galleryFadeIn{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
+    .gallery-slide.active{animation:galleryFadeIn .35s ease forwards}
+
+/* ── CTA pulse ── */
+    @keyframes ctaPulse{
+      0%,100%{box-shadow:0 0 0 0 rgba(255,210,63,.55)}
+      60%{box-shadow:0 0 0 20px rgba(255,210,63,0)}
+    }
+    .cta-pulse{animation:ctaPulse 2.2s ease-in-out infinite}
+
+/* ── Dot pulse ── */
+    @keyframes dotPulse{
+      0%,100%{box-shadow:0 0 0 0 rgba(255,210,63,.7);transform:scale(1)}
+      50%{box-shadow:0 0 0 9px rgba(255,210,63,0);transform:scale(1.18)}
+    }
+    .dot-pulse{animation:dotPulse 1.8s ease-in-out infinite}
+
+/* ══ MEMBER CARD ══ */
+    .member-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1rem;
+      cursor: pointer;
+      aspect-ratio: 3/4;
+      background: #111;
+      transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s;
+    }
+    .member-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+    }
+    .member-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease;
+    }
+    .member-card:hover img {
+      transform: scale(1.06);
+    }
+    /* Overlay — hidden by default, revealed on hover */
+    .member-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.55) 45%, transparent 75%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.1rem;
+      pointer-events: none;
+    }
+    .member-card:hover .member-overlay {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    /* Verified badge overlay */
+    .verified-badge {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(34,197,94,0.95);
+      color: #fff;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-weight: 700;
+      font-size: 0.78rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 20;
+      box-shadow: 0 4px 18px rgba(34,197,94,0.5);
+    }
+    .member-card.verified .verified-badge {
+      opacity: 1;
+    }
+    .member-card.verified .member-overlay {
+      opacity: 1;
+    }
+
+/* ── Section divider ── */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-weight: 800;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #0D0D0D;
+      background: #FFD23F;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+    }
+
+/* ── Committee header ── */
+    .committee-header {
+      position: relative;
+      padding-left: 1rem;
+    }
+    .committee-header::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 80%;
+      background: #FFD23F;
+      border-radius: 2px;
+    }
+
+/* ── Toast ── */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(6rem);
+      background: #ef4444;
+      color: #fff;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 0.85rem 1.6rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 8px 30px rgba(239,68,68,0.4);
+      transition: transform 0.35s cubic-bezier(.34,1.56,.64,1), opacity 0.35s;
+      opacity: 0;
+      z-index: 9999;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+/* ── Search box glow ── */
+    #verify-input:focus {
+      outline: none;
+      border-color: #FFD23F;
+      box-shadow: 0 0 0 3px rgba(255,210,63,0.25);
+    }
+
+/* ── Hero section pattern ── */
+    .team-hero-bg {
+      background: #0D0D0D;
+      position: relative;
+      overflow: hidden;
+    }
+    .team-hero-bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 20% 50%, rgba(255,210,63,0.12) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 30%, rgba(255,210,63,0.08) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+/* ── Mobile fixes ── */
+    @media (max-width: 640px) {
+      .logo-navbar, nav img { max-height: 2.2rem !important; }
+    }
+    .no-scroll::-webkit-scrollbar{display:none}
+    .no-scroll{-ms-overflow-style:none;scrollbar-width:none}
+
+/* ── Shimmer ── */
+    @keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+    .shimmer{
+      background:linear-gradient(90deg,#FFD23F 25%,#fff 50%,#FFD23F 75%);
+      background-size:400px 100%;
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      animation:shimmer 3.5s linear infinite
+    }
+
+/* ── Verified ring ── */
+    .member-card.verified {
+      ring: 4px;
+      ring-color: rgb(34 197 94);
+      box-shadow: 0 0 0 4px rgb(34 197 94), 0 0 25px rgba(34,197,94,0.6) !important;
+    }

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "welcome-to-pulse-news",
+    "slug": "welcome-to-pulse-news",
+    "title": "Welcome to Pulse News",
+    "excerpt": "Pulse now has its own newsroom — season updates, event recaps, and new-member announcements, published right here.",
+    "body": "Starting today, Pulse has a permanent home for everything happening across the community: event recaps, new committee announcements, scholarship news, and season milestones — published the way a real newsroom would, and kept forever in the archive.\n\nThis page updates automatically whenever the Pulse team publishes something new through the admin dashboard, so you never have to check anywhere else. Bookmark this page.\n\nGot something the community should know about? Reach out to the Pulse Media Team.",
+    "image": "images/logo.webp",
+    "category": "Announcement",
+    "tags": ["Pulse", "Launch"],
+    "date": "2026-09-07",
+    "author": "Pulse Media Team",
+    "featured": true,
+    "pinned": true
+  }
+]
