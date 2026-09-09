@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Pulse News</title>
+<link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+<link rel="shortcut icon" href="favicon/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+<link rel="manifest" href="favicon/site.webmanifest" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <script src="assets/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="assets/css/main.css"/>
+  <link rel="stylesheet" href="assets/css/news.css"/>
+</head>
+<body>
+
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-white/85 backdrop-blur-md px-6 md:px-12 py-3">
+  <div class="max-w-6xl mx-auto flex items-center justify-between">
+
+    <a href="index.html" class="flex items-center">
+      <img src="images/logo.webp" alt="Pulse" class="h-11 w-auto object-contain" style="background:transparent;mix-blend-mode:multiply;" />
+    </a>
+
+    <div class="hidden md:flex items-center gap-8">
+      <a href="index.html#what-we-do" class="font-body text-sm font-medium text-slate-600 hover:text-yellow-deep transition-colors">What We Do</a>
+      <a href="index.html#events"     class="font-body text-sm font-medium text-slate-600 hover:text-yellow-deep transition-colors">Events</a>
+      <a href="index.html#committees" class="font-body text-sm font-medium text-slate-600 hover:text-yellow-deep transition-colors">Committees</a>
+      <a href="team.html" class="font-body text-sm font-medium text-slate-600 hover:text-yellow-deep transition-colors">Our Team</a>
+      <a href="news.html" class="font-body text-sm font-medium text-yellow-deep border-b-2 border-yellow-pulse transition-colors">News</a>
+      <a href="https://forms.gle/yxmnXCHtAcTAzY9LA" target="_blank" rel="noopener"
+         class="bg-yellow-pulse text-ink text-sm font-display font-bold px-5 py-2.5 rounded-full shadow-glowsm hover:shadow-glow hover:scale-105 transition-all duration-200">
+        Join Us ⚡
+      </a>
+    </div>
+
+    <button id="hamburger" class="md:hidden text-ink text-2xl focus:outline-none">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="md:hidden bg-white mt-2 rounded-2xl shadow-lg">
+    <div class="flex flex-col px-6 py-4 gap-0">
+      <a href="index.html#what-we-do" class="py-3 border-b border-gray-100 text-sm text-slate-700 hover:text-yellow-deep transition-colors mobile-link">What We Do</a>
+      <a href="index.html#events"     class="py-3 border-b border-gray-100 text-sm text-slate-700 hover:text-yellow-deep transition-colors mobile-link">Events</a>
+      <a href="index.html#committees" class="py-3 border-b border-gray-100 text-sm text-slate-700 hover:text-yellow-deep transition-colors mobile-link">Committees</a>
+      <a href="team.html" class="py-3 border-b border-gray-100 text-sm text-slate-700 hover:text-yellow-deep transition-colors mobile-link">Our Team</a>
+      <a href="news.html" class="py-3 border-b border-gray-100 text-sm font-semibold text-yellow-deep transition-colors mobile-link">News</a>
+      <a href="https://forms.gle/yxmnXCHtAcTAzY9LA" target="_blank" rel="noopener"
+         class="mt-4 mb-2 text-center bg-yellow-pulse text-ink font-display font-bold px-5 py-3 rounded-full mobile-link">
+        Join Us ⚡
+      </a>
+    </div>
+  </div>
+</nav>
+
+<article class="pt-32 pb-24 px-6" id="article-root">
+  <div class="max-w-3xl mx-auto reveal visible">
+    <a href="news.html" class="inline-flex items-center gap-2 text-sm font-body text-slate-500 hover:text-yellow-deep transition-colors mb-6">
+      <i class="fa-solid fa-arrow-left"></i> Back to News
+    </a>
+
+    <div id="article-meta" class="flex items-center gap-3 mb-4"></div>
+
+    <h1 id="article-title" class="font-display font-extrabold text-ink leading-tight" style="font-size:clamp(1.8rem,4vw,2.8rem);"></h1>
+
+    <div class="flex items-center gap-3 mt-5 mb-8 text-sm font-body text-slate-400">
+      <span id="article-date"></span>
+      <span>·</span>
+      <span id="article-author"></span>
+    </div>
+
+    <div class="rounded-2xl overflow-hidden mb-10 bg-gray-100">
+      <img id="article-image" src="" alt="" class="w-full h-auto object-cover" />
+    </div>
+
+    <div id="article-body" class="font-body text-slate-700 leading-relaxed text-lg space-y-5"></div>
+
+    <div id="article-tags" class="flex flex-wrap gap-2 mt-10"></div>
+  </div>
+</article>
+
+<div id="article-not-found" class="hidden pt-40 pb-24 px-6 text-center">
+  <h1 class="font-display font-extrabold text-ink text-3xl mb-4">Article not found</h1>
+  <p class="font-body text-slate-500 mb-8">This story may have been moved or unpublished.</p>
+  <a href="news.html" class="inline-flex items-center gap-2 bg-yellow-pulse text-ink font-display font-bold px-6 py-3 rounded-full hover:shadow-glow hover:scale-105 transition-all">Back to News</a>
+</div>
+
+<footer class="bg-ink text-white py-14 px-6">
+  <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-10">
+
+    <div class="text-center md:text-left">
+      <img src="images/logo.webp" alt="Pulse" class="h-14 w-auto object-contain mb-3 mx-auto md:mx-0" style="background:transparent;mix-blend-mode:screen;filter:brightness(1.4);" />
+      <p class="font-body text-white/40 text-sm max-w-xs leading-relaxed">
+        Youth-led tech &amp; scholarship community.<br/>We build, learn, and lead — together.
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-3 text-center md:text-left">
+      <span class="font-display font-bold text-white/40 text-xs uppercase tracking-widest mb-1">Navigate</span>
+      <a href="#what-we-do" class="text-sm text-white/65 hover:text-yellow-pulse transition-colors">What We Do</a>
+      <a href="#events"     class="text-sm text-white/65 hover:text-yellow-pulse transition-colors">Events</a>
+      <a href="#committees" class="text-sm text-white/65 hover:text-yellow-pulse transition-colors">Committees</a>
+      <a href="team.html" class="text-sm text-white/65 hover:text-yellow-pulse transition-colors">Our Team</a>
+      <a href="news.html" class="text-sm text-white/65 hover:text-yellow-pulse transition-colors">News</a>
+      <a href="https://forms.gle/yxmnXCHtAcTAzY9LA" target="_blank" rel="noopener"
+         class="text-sm text-white/65 hover:text-yellow-pulse transition-colors">Apply Now</a>
+    </div>
+
+    <div class="flex flex-col items-center md:items-end gap-5">
+      <span class="font-display font-bold text-white/40 text-xs uppercase tracking-widest">Follow Us</span>
+      <div class="flex gap-5 text-white/45 text-xl">
+        <a href="https://www.facebook.com/pulsekfs" target="_blank" rel="noopener" class="soc" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/pulse_kfs_club/" target="_blank" rel="noopener" class="soc" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.youtube.com/channel/UCKDnYSp00fgy9Wz73GiP4xQ" target="_blank" rel="noopener" class="soc" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        <a href="https://www.linkedin.com/company/pulsekfs/" target="_blank" rel="noopener" class="soc" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://linktr.ee/pulsekfs" target="_blank" rel="noopener" class="soc" aria-label="Linktree"><i class="fa-solid fa-tree"></i></a>
+      </div>
+      <a href="https://forms.gle/yxmnXCHtAcTAzY9LA" target="_blank" rel="noopener"
+         class="inline-flex items-center gap-2 bg-yellow-pulse text-ink font-display font-bold px-6 py-3 rounded-full text-sm hover:shadow-glow hover:scale-105 transition-all">
+        <i class="fa-solid fa-rocket"></i> Apply Now
+      </a>
+    </div>
+  </div>
+
+  <div class="max-w-5xl mx-auto border-t border-white/10 mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-2 text-white/20 text-xs">
+    <span>&copy; 2026 Pulse Community. All rights reserved.</span>
+    <span>Built with ⚡ by the Pulse Media Team</span>
+  </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
+<script src="assets/js/news-article.js"></script>
+</body>
+</html>
