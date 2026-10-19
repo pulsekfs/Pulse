@@ -7,10 +7,33 @@
     "body": "Starting today, Pulse has a permanent home for everything happening across the community: event recaps, new committee announcements, scholarship news, and season milestones — published the way a real newsroom would, and kept forever in the archive.\n\nThis page updates automatically whenever the Pulse team publishes something new through the admin dashboard, so you never have to check anywhere else. Bookmark this page.\n\nGot something the community should know about? Reach out to the Pulse Media Team.",
     "image": "images/logo.webp",
     "category": "Announcement",
-    "tags": ["Pulse", "Launch"],
+    "tags": [
+      "Pulse",
+      "Launch"
+    ],
     "date": "2026-09-07",
     "author": "Pulse Media Team",
     "featured": true,
     "pinned": true
+  },
+  {
+    "id": "mvfgvhb7dw2w",
+    "slug": "the-pulse-of-physics-exclusive-academic-sessions-with-osama-hatem-farahat",
+    "title": "The Pulse of Physics: Exclusive Academic Sessions with Osama Hatem Farahat",
+    "excerpt": "Pulse presents an exciting physics series for students conducted by Osama Hatem Farahat. Learn about the laws governing the universe and advanced concepts in applied physics.",
+    "body": "It is with great pleasure that Pulse introduces its unique academic series called \"The Pulse of Physics\" to help students connect theory with science in practice.\nThe series will be facilitated by Osama Hatem Farahat, the Head of the Olympiads Department at Pulse and student in Grade 12 at KFS STEM School, who accomplished the following among others:\nPlacing in the Top 15% globally in the International Physics Competition (IPhyC), and being an Official Ambassador of KFS STEM School.\nPlacing among the Top 20 globally in the 1st Edition of Pharos League.\nExperience in applied physics through various engineering projects and Triboelectricity academic research.\nSessions Schedule and Details:\nGirl's Session: Tuesday | 6:30 PM – 8:00 PM\nBoy's Session: Wednesday | 6:30 PM – 8:00 PM\nPlace: Meeting Room\nWhere the Laws of the Universe meet your curiosity.\nFor more updates, visit our official website at pulsekfs.org or explore our Linktree at https://linktr.ee/pulsekfs.",
+    "image": "images/news/1792427183491-whatsapp-image-2026-10-19-at-18-15-13.jpeg",
+    "category": "Workshop",
+    "tags": [
+      "physics",
+      "olympiad",
+      "pulse",
+      "academic",
+      "stem"
+    ],
+    "date": "2026-10-20",
+    "author": "Pulse Media Team",
+    "featured": true,
+    "pinned": false
   }
 ]
